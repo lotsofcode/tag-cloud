@@ -1,0 +1,80 @@
+
+/************************************************************\
+*
+*	  wordCloud Copyright 2007 Derek Harvey
+*	  www.lotsofcode.com
+*
+*	  This file is part of wordCloud.
+*
+*	  wordCloud is free software; you can redistribute it and/or modify
+*	  it under the terms of the GNU General Public License as published by
+*	  the Free Software Foundation; either version 2 of the License, or
+*	  (at your option) any later version.
+*
+*	  wordCloud is distributed in the hope that it will be useful,
+*	  but WITHOUT ANY WARRANTY; without even the implied warranty of
+*	  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	See the
+*	  GNU General Public License for more details.
+*
+*	  You should have received a copy of the GNU General Public License
+*	  along with wordCloud; if not, write to the Free Software
+*	  Foundation, Inc., 59 Tpxple Place, Suite 330, Boston, MA	02111-1307	USA
+*
+\************************************************************/
+  
+/*
+  THIS FILE IS FOR THE STYLES OF THE EXAMPLE.PHP PAGE 
+  AND IS NOT REQUIRED FOR THE WORD CLOUD
+*/
+  
+body {
+	background: #eee;
+	margin: 10px 10px 50px;
+}
+body, a {
+	font-family: Tahoma;
+	font-size: 11px;
+	color: #333;
+}
+h1, h1 a, h2 {
+  font-size: 20px;
+  text-decoration: none;
+	font-weight: normal;
+	margin: 0;
+	text-align: center;
+  line-height: 140%;
+}
+h3 {
+	letter-spacing: 3px;
+	font-size: 14px;
+	line-height: 30px;
+	border-bottom: 1px solid #FF0000;
+	margin: 0;
+	font-weight: bold;
+	color: #FF0000;
+}
+h4 {
+	letter-spacing: 3px;
+	font-size: 12px;
+	line-height: 40px;
+	margin: 0;
+	font-weight: bold;
+	color: #FF0000;
+}
+#example {
+  padding: 10px 200px;
+}
+.word-cloud {
+	border: 1px inset #333;
+	padding: 30px;
+}
+textarea {
+	display: block;
+	padding: 8px;
+	border: 1px dashed red;
+	width: 99%;
+	height: 150px;
+	font-size: 11px;
+	font-family: Tahoma;
+	line-height: 16px;
+}
