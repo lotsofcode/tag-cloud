@@ -114,7 +114,7 @@
 			if($this->formatting['trim']){
 				$string = trim($string);
 			}
-			return preg_replace('/[^a-z ]/', '', strip_tags($string));
+			return preg_replace('/[^\w ]/u', '', strip_tags($string));
 		}
 		
 		/*
