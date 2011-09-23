@@ -3,9 +3,9 @@ PHP Tag Cloud http://www.lotsofcode.com/php/tag-cloud.htm
 
 The required files are as follows:
 
-> example.php - Example file, contains a list of example ways to include the script.
-> css/wordcloud.css - Stylesheet, contains all the size options, imported in example.php
-> classes/wordcloud.class.php - PHP Class, included in example.php
+* example.php - Example file, contains a list of example ways to include the script.
+* css/wordcloud.css - Stylesheet, contains all the size options, imported in example.php
+* classes/wordcloud.class.php - PHP Class, included in example.php
 
 Sample usage
 -------------
