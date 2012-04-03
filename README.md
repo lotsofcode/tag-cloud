@@ -10,6 +10,7 @@ The required files are as follows:
 Sample usage
 -------------
 	
+```	
 <?php
 	require_once 'classes/wordcloud.class.php';
 	$cloud = new wordCloud();
@@ -19,5 +20,6 @@ Sample usage
 	$cloud->addWords('hello','world','how','are','foo','bar');
 	echo $cloud->showCloud();
 ?>
+```
 
 More advanced usages can be found here:  http://lotsofcode.github.com/tag-cloud
