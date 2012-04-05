@@ -5,14 +5,14 @@
 	 *	tagcloud Copyright 2012 Derek Harvey
 	 *	lotsofcode.com
 	 *
-	 *	This file is part of wordCloud.
+	 *	This file is part of tagcloud.
 	 *
-	 *	tag cloud is free software; you can redistribute it and/or modify
+	 *	tagcloud is free software; you can redistribute it and/or modify
 	 *	it under the terms of the GNU General Public License as published by
 	 *	the Free Software Foundation; either version 2 of the License, or
 	 *	(at your option) any later version.
 	 *
-	 *	tag cloud is distributed in the hope that it will be useful,
+	 *	tagcloud is distributed in the hope that it will be useful,
 	 *	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	 *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	See the
 	 *	GNU General Public License for more details.
@@ -28,7 +28,7 @@
 		/**
 		 * Tag cloud version
 		 */
-		public $version = '2.1';
+		public $version = '3.0.0';
 		
 		/*
 		 * Word array container
@@ -41,7 +41,7 @@
 		protected $_removeWords = array();
 
 		/**
- 		 * Cached attributes
+ 		 * Cached attributes for order comparison
 		 */
 		protected $_attributes = array();
 
@@ -51,12 +51,12 @@
 		protected $_limit = null;
 
 		/*
-		 * Amount to limit cloud by
+		 * Minimum length of string to filtered in string
 		 */
 		protected $_minLength = null;
 
 		/*
-		 * Custom format ourput of words
+		 * Custom format output of words
 		 * 		 
 		 * transformation: upper and lower for change of case
 		 * trim: bool, applies trimming to word		 		 		 		 
@@ -75,9 +75,7 @@
 		 */
 		public function __construct($words = false)
 		{
-			// If we are trying to parse some works, in any format / type
 			if ($words !== false) {
-				// If we have a string
 				if (is_string($words)) {
 					$this->addString($words);
 				} elseif (count($words)) {
@@ -86,13 +84,14 @@
 					}
 				}
 			}
-			return;
 		}
 		
 		/*
-		 * Convert a string into a cloud
+		 * Convert a string into a array
 		 *
-		 * @param string $string
+		 * @param string $string    The string to use
+		 * @param string $seperator The seperator to extract the tags
+		 *
 		 * @return void
 		 */
 		public function addString($string, $seperator = ' ')
@@ -128,14 +127,13 @@
 			}
 			return preg_replace('/[^\w ]/u', '', strip_tags($string));
 		}
-
 		
 		/*
 		 * Assign word to array
 		 *
-		 * @param array $word
+		 * @param array $wordAttributes Words or word attributes array
 		 * 		 
-		 * @return array
+		 * @return array $this->wordsArray
 		 */
 		public function addWord($wordAttributes = array())
 		{
@@ -164,7 +162,7 @@
 		}
 
 		/*
-		 * Add attributes to cached array
+		 * Add all attributes to cached array
 		 *
 		 * @return void
 		 */
@@ -191,7 +189,7 @@
 		/*
 		 * Assign multiple words to array
 		 *
-		 * @param array $word
+		 * @param array $words
 		 * 		 
 		 * @return void
 		 */
@@ -206,11 +204,12 @@
 		}
 		
 		/*
-		 * Sets a limit for the amount of clouds
+		 * Sets a minimum string length for the 
+		 * words to display
 		 *
-		 * @param int $limit		 
+		 * @param int $minLength		 
 		 *		 
-		 * @returns int $this->limit
+		 * @returns obj $this
 		 */
 		public function setMinLength($minLength)
 		{
@@ -220,11 +219,9 @@
 		
 
 		/*
-		 * Sets a limit for the amount of clouds
-		 *
-		 * @param int $limit		 
+		 * Gets the minimum length value
 		 *		 
-		 * @returns int $this->_limit
+		 * @returns void
 		 */
 		public function getMinLength()
 		{
@@ -237,7 +234,7 @@
 		 *
 		 * @param int $limit		 
 		 *		 
-		 * @returns int $this->limit
+		 * @returns obj $this
 		 */
 		public function setLimit($limit)
 		{
@@ -246,7 +243,8 @@
 		}
 
 		/*
-		 * Sets a limit for the amount of clouds
+		 * Get the limit for the amount words 
+		 * to display
 		 *
 		 * @param int $limit		 
 		 *		 
@@ -262,11 +260,12 @@
 		 *
 		 * @param string $word		 
 		 *		 
-		 * @returns voidgetAttributes
+		 * @returns obj $this
 		 */
 		public function setRemoveWord($word)
 		{
 			$this->_removeWords[] = $this->formatWord($word);
+			return $this;
 		}
 
 		/*
@@ -274,21 +273,20 @@
 		 *
 		 * @param array $words		 
 		 *		 
-		 * @returns void
+		 * @returns obj $this
 		 */
 		public function setRemoveWords($words)
 		{
 			foreach ($words as $word) {
 				$this->setRemoveWord($word);
 			}
+			rturn $this;
 		}
 
 		/*
-		 * Remove multiple words from the array
-		 *
-		 * @param array $words		 
+		 * Get the list of remove words
 		 *		 
-		 * @returns void
+		 * @returns array $this->_removeWords
 		 */
 		public function getRemoveWords()
 		{
@@ -296,14 +294,14 @@
 		}
 
 		/*
-		 * Assign the order field and order direction of the cloud
+		 * Assign the order field and order direction of the array
 		 * 
 		 * Order by word or size / defaults to random		 		 
 		 *
-		 * @param array $field
+		 * @param array  $field
 		 * @param string $sortway
 		 *     		 
-		 * @returns void
+		 * @returns $this->orderBy
 		 */
 		public function setOrder($field, $direction = 'ASC')
 		{
@@ -314,7 +312,7 @@
 	    }
 			
 		/*
-		 * Create the HTML code for each word and apply font size.
+		 * Generate the output for each word.
 		 *
 		 * @returns string/array $return
 		 */
@@ -395,9 +393,10 @@
 		}
 		
 		/*
-		 * Gets the limited amount of clouds
+		 * Parses the array and retuns
+		 * limited amount of items
 		 *
-		 * @returns array $wordsArray
+		 * @returns array $this->_wordsArray
 		 */
 		protected function _limit()
 		{
@@ -418,9 +417,10 @@
 		}
 
 		/*
-		 * Gets the limited amount of clouds
+		 * Reduces the array by removing strings
+		 * with a length shorter than the minLength
 		 *
-		 * @returns array $wordsArray
+		 * @returns array $this->_wordsArray
 		 */
 		protected function _minLength()
 		{
@@ -441,7 +441,7 @@
 		}
 
 		/*
-		 * Finds the maximum value of an array
+		 * Finds the maximum 'size' value of an array
 		 *
 		 * @returns string $max
 		 */
