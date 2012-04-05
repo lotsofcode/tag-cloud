@@ -46,6 +46,16 @@
 		protected $_attributes = array();
 
 		/*
+		 * Amount to limit cloud by
+		 */
+		protected $_limit = null;
+
+		/*
+		 * Amount to limit cloud by
+		 */
+		protected $_minLength = null;
+
+		/*
 		 * Custom format ourput of words
 		 * 		 
 		 * transformation: upper and lower for change of case
@@ -153,6 +163,11 @@
 			return $this->_wordsArray[$word];
 		}
 
+		/*
+		 * Add attributes to cached array
+		 *
+		 * @return void
+		 */
 		public function addAttributes($attributes)
 		{
 			$this->_attributes = array_unique(
@@ -162,6 +177,12 @@
 				)
 			);
 		}
+
+		/*
+		 * Get attributes from cache
+		 *
+		 * @return array $this->_attibutes
+		 */
 		public function getAttributes()
 		{
 			return $this->_attributes;
@@ -187,26 +208,53 @@
 		/*
 		 * Sets a limit for the amount of clouds
 		 *
-		 * @param string $limit		 
+		 * @param int $limit		 
 		 *		 
-		 * @returns string $this->limitAmount
+		 * @returns int $this->limit
+		 */
+		public function setMinLength($minLength)
+		{
+			$this->_minLength = $minLength;
+			return $this;
+		}
+		
+
+		/*
+		 * Sets a limit for the amount of clouds
+		 *
+		 * @param int $limit		 
+		 *		 
+		 * @returns int $this->_limit
+		 */
+		public function getMinLength()
+		{
+			return $this->_minLength;
+		}
+
+
+		/*
+		 * Sets a limit for the amount of clouds
+		 *
+		 * @param int $limit		 
+		 *		 
+		 * @returns int $this->limit
 		 */
 		public function setLimit($limit)
 		{
-			$this->limitAmount = $limit;
+			$this->_limit = $limit;
 			return $this;
 		}
 
 		/*
 		 * Sets a limit for the amount of clouds
 		 *
-		 * @param string $limit		 
+		 * @param int $limit		 
 		 *		 
-		 * @returns string $this->limitAmount
+		 * @returns int $this->_limit
 		 */
 		public function getLimit()
 		{
-			return $this->limitAmount;
+			return $this->_limit;
 		}
 
 		/*
@@ -231,7 +279,7 @@
 		public function setRemoveWords($words)
 		{
 			foreach ($words as $word) {
-				$this->removeWord($word);
+				$this->setRemoveWord($word);
 			}
 		}
 
@@ -265,6 +313,43 @@
 			);
 	    }
 			
+		/*
+		 * Create the HTML code for each word and apply font size.
+		 *
+		 * @returns string/array $return
+		 */
+		public function render($returnType = 'html')
+		{
+			$this->_remove();
+			$this->_minLength();
+			if (empty($this->orderBy)) {
+				$this->_shuffle();
+			} else {
+				$orderDirection = strtolower($this->orderBy['direction']) == 'desc' ? 'SORT_DESC' : 'SORT_ASC';
+        		$this->_wordsArray = $this->_order(
+        			$this->_wordsArray,
+        			$this->orderBy['field'],
+        			$orderDirection
+        		);
+			}
+			$this->_limit();
+			$max = $this->_getMax();
+			if (is_array($this->_wordsArray)) {
+				$return = ($returnType == 'html' ? '' : ($returnType == 'array' ? array() : ''));
+				foreach ($this->_wordsArray as $word => $arrayInfo) {
+					$sizeRange = $this->_getClassFromPercent(($arrayInfo['size'] / $max) * 100);
+					$arrayInfo['range'] = $sizeRange;
+					if ($returnType == 'array') {
+						$return [$word] = $arrayInfo;
+					} elseif ($returnType == 'html') {
+						$return .= "<span class='word size{$sizeRange}'> &nbsp; {$arrayInfo['word']} &nbsp; </span>";
+					}
+				}
+				return $return;
+			}
+			return false;
+		}
+
 		/*
 		 * Removes tags from the whole array
 		 * 
@@ -316,19 +401,45 @@
 		 */
 		protected function _limit()
 		{
-			$i = 0;
-			$_wordsArray = array();
-			foreach ($this->_wordsArray as $key => $value) {
-				if ($i < $this->getLimit()) {
-					$_wordsArray[$value['word']] = $value;
+			$limit = $this->getLimit();
+			if ($limit !== null) {
+				$i = 0;
+				$_wordsArray = array();
+				foreach ($this->_wordsArray as $key => $value) {
+					if ($i < $limit) {
+						$_wordsArray[$value['word']] = $value;
+					}
+					$i++;
 				}
-				$i++;
+				$this->_wordsArray = array();
+				$this->_wordsArray = $_wordsArray;
 			}
-			$this->_wordsArray = array();
-			$this->_wordsArray = $_wordsArray;
 			return $this->_wordsArray;
 		}
-		
+
+		/*
+		 * Gets the limited amount of clouds
+		 *
+		 * @returns array $wordsArray
+		 */
+		protected function _minLength()
+		{
+			$limit = $this->getMinLength();
+			if ($limit !== null) {
+				$i = 0;
+				$_wordsArray = array();
+				foreach ($this->_wordsArray as $key => $value) {
+					if (strlen($value['word']) >= $limit) {
+						$_wordsArray[$value['word']] = $value;
+					}
+					$i++;
+				}
+				$this->_wordsArray = array();
+				$this->_wordsArray = $_wordsArray;
+			}
+			return $this->_wordsArray;
+		}
+
 		/*
 		 * Finds the maximum value of an array
 		 *
@@ -355,7 +466,7 @@
 		 *
 		 * @return array $this->_wordsArray The shuffled array
 		 */
-		private function _shuffle()
+		protected function _shuffle()
 		{
 			$keys = array_keys($this->_wordsArray);
 			shuffle($keys);
@@ -374,7 +485,7 @@
 		 * @returns int $class The respective class 
 		 * name based on the percentage value
 		 */
-		private function _getClassFromPercent($percent)
+		protected function _getClassFromPercent($percent)
 		{
 			$percent = floor($percent);
 			if ($percent >= 99)
@@ -398,47 +509,5 @@
 			else
 				$class = 0;
 			return $class;
-		}
-
-		/*
-		 * Create the HTML code for each word and apply font size.
-		 *
-		 * @returns string/array $return
-		 */
-		
-		function showCloud($returnType = 'html') {
-
-
-			//echo '<pre>'; print_r($this->getAttributes());
-
-			$this->_remove();
-			if (empty($this->orderBy)) {
-				$this->_shuffle();
-			} else {
-				$orderDirection = strtolower($this->orderBy['direction']) == 'desc' ? 'SORT_DESC' : 'SORT_ASC';
-        		$this->_wordsArray = $this->_order(
-        			$this->_wordsArray,
-        			$this->orderBy['field'],
-        			$orderDirection
-        		);
-			}
-			if (!empty($this->limitAmount)) {
-				$this->_limit();
-			}
-			$max = $this->_getMax();
-			if (is_array($this->_wordsArray)) {
-				$return = ($returnType == 'html' ? '' : ($returnType == 'array' ? array() : ''));
-				foreach ($this->_wordsArray as $word => $arrayInfo) {
-					$sizeRange = $this->_getClassFromPercent(($arrayInfo['size'] / $max) * 100);
-					$arrayInfo['range'] = $sizeRange;
-					if ($returnType == 'array') {
-						$return [$word] = $arrayInfo;
-					} elseif ($returnType == 'html') {
-						$return .= "<span class='word size{$sizeRange}'> &nbsp; {$arrayInfo['word']} &nbsp; </span>";
-					}
-				}
-				return $return;
-			}
-			return false;
 		}
 	}
