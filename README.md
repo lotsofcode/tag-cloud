@@ -1,6 +1,5 @@
 # PHP Tag Cloud
-## Derek Harvey
-### v3.0
+## v3.0
 
 #### Basic usage
 
