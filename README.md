@@ -5,31 +5,31 @@
 
 	include 'classes/tagcloud.php';
 	$cloud = new tagcloud();
-	$cloud->addWord("tag-cloud");
-	$cloud->addWord("programming");
+	$cloud->addTag("tag-cloud");
+	$cloud->addTag("programming");
 	echo $cloud->render();
 
 #### Convert a string 
 
 	$cloud->addString("This is a tag-cloud script, written by Del Harvey. I wrote this tag-cloud class because I just love writing code.");
 
-#### Adding multiple words
+#### Adding multiple tags
 
-	$cloud->addWords(array('tag-cloud','php','github'));
+	$cloud->addTags(array('tag-cloud','php','github'));
 
-#### Removing a word
+#### Removing a tag
 
-	$cloud->setRemoveWord('github');
+	$cloud->setRemoveTag('github');
 
-#### Removing multiple words
+#### Removing multiple tags
 
-	$cloud->setRemoveWords(array('del','harvey'));
+	$cloud->setRemoveTags(array('del','harvey'));
 
 #### More complex adding
 
-	$cloud->addWord(array('word' => 'php', 'url' => 'http://www.php.net', 'colour' => 1));
-	$cloud->addWord(array('word' => 'ajax', 'url' => 'http://www.php.net', 'colour' => 2));
-	$cloud->addWord(array('word' => 'css', 'url' => 'http://www.php.net', 'colour' => 3));
+	$cloud->addTag(array('tag' => 'php', 'url' => 'http://www.php.net', 'colour' => 1));
+	$cloud->addTag(array('tag' => 'ajax', 'url' => 'http://www.php.net', 'colour' => 2));
+	$cloud->addTag(array('tag' => 'css', 'url' => 'http://www.php.net', 'colour' => 3));
 
 #### Set the minimum length required
 
