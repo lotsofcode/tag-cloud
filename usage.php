@@ -3,29 +3,32 @@
 <div style="width: 200px">
 
 	<?
+
+ini_set('display_errors','on');
+
 		include 'classes/tagcloud.php';
 		$cloud = new tagcloud();
 
 		/* adding a string */
 		$cloud->addString("This is a tag-cloud script, written by Del Harvey. I wrote this tag-cloud class because I just love writing code.");
 
-		/* adding a word */
-		$cloud->addWord("programming");
-		$cloud->addWord("tag-cloud");
+		/* adding a tag */
+		$cloud->addTag("programming");
+		$cloud->addTag("tag-cloud");
 
-		/* adding multiple words */
-		$cloud->addWords(array('tag-cloud','php','github'));
+		/* adding multiple tags */
+		$cloud->addTags(array('tag-cloud','php','github'));
 
-		/* removing a word */
-		$cloud->setRemoveWord('github');
+		/* removing a tag */
+		$cloud->setRemoveTag('github');
 
-		/* removing a word */
-		$cloud->setRemoveWords(array('del','harvey'));
+		/* removing a tag */
+		$cloud->setRemoveTags(array('del','harvey'));
 
 		/* more complex adding */
-		$cloud->addWord(array('word' => 'php', 'url' => 'http://www.php.net', 'colour' => 1));
-		$cloud->addWord(array('word' => 'ajax', 'url' => 'http://www.php.net', 'colour' => 2));
-		$cloud->addWord(array('word' => 'css', 'url' => 'http://www.php.net', 'colour' => 3));
+		$cloud->addTag(array('tag' => 'php', 'url' => 'http://www.php.net', 'colour' => 1));
+		$cloud->addTag(array('tag' => 'ajax', 'url' => 'http://www.php.net', 'colour' => 2));
+		$cloud->addTag(array('tag' => 'css', 'url' => 'http://www.php.net', 'colour' => 3));
 
 		/* set the minimum length required */
 		$cloud->setMinLength(3);

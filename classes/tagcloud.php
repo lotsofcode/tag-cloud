@@ -18,7 +18,7 @@
 	 *	GNU General Public License for more details.
 	 *
 	 *	You should have received a copy of the GNU General Public License
-	 *	along with wordCloud; if not, write to the Free Software
+	 *	along with tagCloud; if not, write to the Free Software
 	 *	Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA	02111-1307	USA
 	 *
 	 \************************************************************/
@@ -31,14 +31,14 @@
 		public $version = '3.0.0';
 		
 		/*
-		 * Word array container
+		 * Tag array container
 		 */
-		protected $_wordsArray = array();
+		protected $_tagsArray = array();
 		
 		/**
- 		 * List of words to remove from final output
+ 		 * List of tags to remove from final output
 		 */
-		protected $_removeWords = array();
+		protected $_removeTags = array();
 
 		/**
  		 * Cached attributes for order comparison
@@ -56,10 +56,10 @@
 		protected $_minLength = null;
 
 		/*
-		 * Custom format output of words
+		 * Custom format output of tags
 		 * 		 
 		 * transformation: upper and lower for change of case
-		 * trim: bool, applies trimming to word		 		 		 		 
+		 * trim: bool, applies trimming to tag		 		 		 		 
 		 */
 		protected $_formatting = array(
 			'transformation' => 'lower',
@@ -69,18 +69,18 @@
 		/*
 		 * Constructor
 		 *
-		 * @param array $words
+		 * @param array $tags
 		 * 		 
 		 * @return void
 		 */
-		public function __construct($words = false)
+		public function __construct($tags = false)
 		{
-			if ($words !== false) {
-				if (is_string($words)) {
-					$this->addString($words);
-				} elseif (count($words)) {
-					foreach ($words as $key => $value) {
-						$this->addWord($value);
+			if ($tags !== false) {
+				if (is_string($tags)) {
+					$this->addString($tags);
+				} elseif (count($tags)) {
+					foreach ($tags as $key => $value) {
+						$this->addTag($value);
 					}
 				}
 			}
@@ -97,21 +97,21 @@
 		public function addString($string, $seperator = ' ')
 		{
 			$inputArray = explode($seperator, $string);
-			$wordArray = array();
-			foreach ($inputArray as $inputWord) {
-				$wordArray[]=$this->formatWord($inputWord);
+			$tagArray = array();
+			foreach ($inputArray as $inputTag) {
+				$tagArray[]=$this->formatTag($inputTag);
 			}
-			$this->addWords($wordArray);
+			$this->addTags($tagArray);
 		}
 		
 		/*
-		 * Parse word into safe format 
+		 * Parse tag into safe format 
 		 *
 		 * @param string $string
 		 *
 		 * @return string
 		 */
-		public function formatWord($string)
+		public function formatTag($string)
 		{
 			if ($this->_formatting['transformation']) {
 				switch ($this->_formatting['transformation']) {
@@ -129,36 +129,36 @@
 		}
 		
 		/*
-		 * Assign word to array
+		 * Assign tag to array
 		 *
-		 * @param array $wordAttributes Words or word attributes array
+		 * @param array $tagAttributes Tags or tag attributes array
 		 * 		 
-		 * @return array $this->wordsArray
+		 * @return array $this->tagsArray
 		 */
-		public function addWord($wordAttributes = array())
+		public function addTag($tagAttributes = array())
 		{
-			if (is_string($wordAttributes)) {
-				$wordAttributes = array('word' => $wordAttributes);
+			if (is_string($tagAttributes)) {
+				$tagAttributes = array('tag' => $tagAttributes);
 			}
-			$wordAttributes['word'] = $this->formatWord($wordAttributes['word']);
-			if (!array_key_exists('size', $wordAttributes)) {
-				$wordAttributes = array_merge($wordAttributes, array('size' => 1));
+			$tagAttributes['tag'] = $this->formatTag($tagAttributes['tag']);
+			if (!array_key_exists('size', $tagAttributes)) {
+				$tagAttributes = array_merge($tagAttributes, array('size' => 1));
 			}
-			if (!array_key_exists('word', $wordAttributes)) {
+			if (!array_key_exists('tag', $tagAttributes)) {
 				return false;
 			}
-			$word = $wordAttributes['word'];
-			if (empty($this->_wordsArray[$word])) {
-				$this->_wordsArray[$word] = array();
+			$tag = $tagAttributes['tag'];
+			if (empty($this->_tagsArray[$tag])) {
+				$this->_tagsArray[$tag] = array();
 			}
-			if (!empty($this->_wordsArray[$word]['size']) && !empty($wordAttributes['size'])) {
-				$wordAttributes['size'] = ($this->_wordsArray[$word]['size'] + $wordAttributes['size']);
-			} elseif (!empty($this->_wordsArray[$word]['size'])) {
-				$wordAttributes['size'] = $this->_wordsArray[$word]['size'];
+			if (!empty($this->_tagsArray[$tag]['size']) && !empty($tagAttributes['size'])) {
+				$tagAttributes['size'] = ($this->_tagsArray[$tag]['size'] + $tagAttributes['size']);
+			} elseif (!empty($this->_tagsArray[$tag]['size'])) {
+				$tagAttributes['size'] = $this->_tagsArray[$tag]['size'];
 			}		
-			$this->_wordsArray[$word] = $wordAttributes;
-			$this->addAttributes($wordAttributes);
-			return $this->_wordsArray[$word];
+			$this->_tagsArray[$tag] = $tagAttributes;
+			$this->addAttributes($tagAttributes);
+			return $this->_tagsArray[$tag];
 		}
 
 		/*
@@ -187,25 +187,25 @@
 		}
 
 		/*
-		 * Assign multiple words to array
+		 * Assign multiple tags to array
 		 *
-		 * @param array $words
+		 * @param array $tags
 		 * 		 
 		 * @return void
 		 */
-		public function addWords($words = array())
+		public function addTags($tags = array())
 		{
-			if (!is_array($words)) {
-				$words = func_get_args();
+			if (!is_array($tags)) {
+				$tags = func_get_args();
 			}
-			foreach ($words as $wordAttributes) {
-				$this->addWord($wordAttributes);
+			foreach ($tags as $tagAttributes) {
+				$this->addTag($tagAttributes);
 			}					
 		}
 		
 		/*
 		 * Sets a minimum string length for the 
-		 * words to display
+		 * tags to display
 		 *
 		 * @param int $minLength		 
 		 *		 
@@ -243,7 +243,7 @@
 		}
 
 		/*
-		 * Get the limit for the amount words 
+		 * Get the limit for the amount tags 
 		 * to display
 		 *
 		 * @param int $limit		 
@@ -256,47 +256,47 @@
 		}
 
 		/*
-		 * Remove a word from the array
+		 * Remove a tag from the array
 		 *
-		 * @param string $word		 
+		 * @param string $tag		 
 		 *		 
 		 * @returns obj $this
 		 */
-		public function setRemoveWord($word)
+		public function setRemoveTag($tag)
 		{
-			$this->_removeWords[] = $this->formatWord($word);
+			$this->_removeTags[] = $this->formatTag($tag);
 			return $this;
 		}
 
 		/*
-		 * Remove multiple words from the array
+		 * Remove multiple tags from the array
 		 *
-		 * @param array $words		 
+		 * @param array $tags		 
 		 *		 
 		 * @returns obj $this
 		 */
-		public function setRemoveWords($words)
+		public function setRemoveTags($tags)
 		{
-			foreach ($words as $word) {
-				$this->setRemoveWord($word);
+			foreach ($tags as $tag) {
+				$this->setRemoveTag($tag);
 			}
-			rturn $this;
+			return $this;
 		}
 
 		/*
-		 * Get the list of remove words
+		 * Get the list of remove tags
 		 *		 
-		 * @returns array $this->_removeWords
+		 * @returns array $this->_removeTags
 		 */
-		public function getRemoveWords()
+		public function getRemoveTags()
 		{
-			return $this->_removeWords;
+			return $this->_removeTags;
 		}
 
 		/*
 		 * Assign the order field and order direction of the array
 		 * 
-		 * Order by word or size / defaults to random		 		 
+		 * Order by tag or size / defaults to random		 		 
 		 *
 		 * @param array  $field
 		 * @param string $sortway
@@ -312,7 +312,7 @@
 	    }
 			
 		/*
-		 * Generate the output for each word.
+		 * Generate the output for each tag.
 		 *
 		 * @returns string/array $return
 		 */
@@ -324,23 +324,23 @@
 				$this->_shuffle();
 			} else {
 				$orderDirection = strtolower($this->orderBy['direction']) == 'desc' ? 'SORT_DESC' : 'SORT_ASC';
-        		$this->_wordsArray = $this->_order(
-        			$this->_wordsArray,
+        		$this->_tagsArray = $this->_order(
+        			$this->_tagsArray,
         			$this->orderBy['field'],
         			$orderDirection
         		);
 			}
 			$this->_limit();
 			$max = $this->_getMax();
-			if (is_array($this->_wordsArray)) {
+			if (is_array($this->_tagsArray)) {
 				$return = ($returnType == 'html' ? '' : ($returnType == 'array' ? array() : ''));
-				foreach ($this->_wordsArray as $word => $arrayInfo) {
+				foreach ($this->_tagsArray as $tag => $arrayInfo) {
 					$sizeRange = $this->_getClassFromPercent(($arrayInfo['size'] / $max) * 100);
 					$arrayInfo['range'] = $sizeRange;
 					if ($returnType == 'array') {
-						$return [$word] = $arrayInfo;
+						$return [$tag] = $arrayInfo;
 					} elseif ($returnType == 'html') {
-						$return .= "<span class='word size{$sizeRange}'> &nbsp; {$arrayInfo['word']} &nbsp; </span>";
+						$return .= "<span class='tag size{$sizeRange}'> &nbsp; {$arrayInfo['tag']} &nbsp; </span>";
 					}
 				}
 				return $return;
@@ -351,18 +351,18 @@
 		/*
 		 * Removes tags from the whole array
 		 * 
-		 * @returns array $this->_wordsArray
+		 * @returns array $this->_tagsArray
 		 */
 		protected function _remove()
 		{
-			foreach ($this->_wordsArray as $key => $value) {
-				if (!in_array($value['word'], $this->getRemoveWords())) {
-					$_wordsArray[$value['word']] = $value;
+			foreach ($this->_tagsArray as $key => $value) {
+				if (!in_array($value['tag'], $this->getRemoveTags())) {
+					$_tagsArray[$value['tag']] = $value;
 				}
 			}
-			$this->_wordsArray = array();
-			$this->_wordsArray = $_wordsArray;
-			return $this->_wordsArray;
+			$this->_tagsArray = array();
+			$this->_tagsArray = $_tagsArray;
+			return $this->_tagsArray;
 		}
 
 		/*
@@ -396,48 +396,48 @@
 		 * Parses the array and retuns
 		 * limited amount of items
 		 *
-		 * @returns array $this->_wordsArray
+		 * @returns array $this->_tagsArray
 		 */
 		protected function _limit()
 		{
 			$limit = $this->getLimit();
 			if ($limit !== null) {
 				$i = 0;
-				$_wordsArray = array();
-				foreach ($this->_wordsArray as $key => $value) {
+				$_tagsArray = array();
+				foreach ($this->_tagsArray as $key => $value) {
 					if ($i < $limit) {
-						$_wordsArray[$value['word']] = $value;
+						$_tagsArray[$value['tag']] = $value;
 					}
 					$i++;
 				}
-				$this->_wordsArray = array();
-				$this->_wordsArray = $_wordsArray;
+				$this->_tagsArray = array();
+				$this->_tagsArray = $_tagsArray;
 			}
-			return $this->_wordsArray;
+			return $this->_tagsArray;
 		}
 
 		/*
 		 * Reduces the array by removing strings
 		 * with a length shorter than the minLength
 		 *
-		 * @returns array $this->_wordsArray
+		 * @returns array $this->_tagsArray
 		 */
 		protected function _minLength()
 		{
 			$limit = $this->getMinLength();
 			if ($limit !== null) {
 				$i = 0;
-				$_wordsArray = array();
-				foreach ($this->_wordsArray as $key => $value) {
-					if (strlen($value['word']) >= $limit) {
-						$_wordsArray[$value['word']] = $value;
+				$_tagsArray = array();
+				foreach ($this->_tagsArray as $key => $value) {
+					if (strlen($value['tag']) >= $limit) {
+						$_tagsArray[$value['tag']] = $value;
 					}
 					$i++;
 				}
-				$this->_wordsArray = array();
-				$this->_wordsArray = $_wordsArray;
+				$this->_tagsArray = array();
+				$this->_tagsArray = $_tagsArray;
 			}
-			return $this->_wordsArray;
+			return $this->_tagsArray;
 		}
 
 		/*
@@ -448,9 +448,9 @@
 		protected function _getMax()
 		{
 			$max = 0;
-			if (!empty($this->_wordsArray)) {
+			if (!empty($this->_tagsArray)) {
 				$p_size = 0;
-				foreach ($this->_wordsArray as $cKey => $cVal) {
+				foreach ($this->_tagsArray as $cKey => $cVal) {
 					$c_size = $cVal['size'];
 					if ($c_size > $p_size) {
 			            $max = $c_size;
@@ -464,19 +464,19 @@
 		/*
 		 * Shuffle associated names in array
 		 *
-		 * @return array $this->_wordsArray The shuffled array
+		 * @return array $this->_tagsArray The shuffled array
 		 */
 		protected function _shuffle()
 		{
-			$keys = array_keys($this->_wordsArray);
+			$keys = array_keys($this->_tagsArray);
 			shuffle($keys);
 			if (count($keys) && is_array($keys)) {
-				$tmpArray = $this->_wordsArray;
-				$this->_wordsArray = array();
+				$tmpArray = $this->_tagsArray;
+				$this->_tagsArray = array();
 				foreach ($keys as $key => $value)
-					$this->_wordsArray[$value] = $tmpArray[$value];
+					$this->_tagsArray[$value] = $tmpArray[$value];
 			}
-			return $this->_wordsArray;
+			return $this->_tagsArray;
 		}
 		
 		/*
