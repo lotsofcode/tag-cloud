@@ -1,0 +1,165 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>PHP Tag cloud by lotsofcode</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/main.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+
+      <header>
+        <h1>PHP Tag cloud</h1>
+        <p>A PHP tag cloud class</p>
+      </header>
+
+      <div id="banner">
+        <span id="logo"></span>
+
+        <a href="https://github.com/lotsofcode/tag-cloud" class="button fork"><strong>Fork On GitHub</strong></a>
+        <div class="downloads">
+          <span>Downloads:</span>
+          <ul>
+            <li><a href="https://github.com/lotsofcode/tag-cloud/zipball/master" class="button">ZIP</a></li>
+            <li><a href="https://github.com/lotsofcode/tag-cloud/tarball/master" class="button">TAR</a></li>
+          </ul>
+        </div>
+
+      </div><!-- end banner -->
+
+    <div class="wrapper">
+      <nav>
+        <ul></ul>
+      </nav>
+      <section>
+        <h3>Basic usage</h3>
+
+<pre><code>include 'classes/tagcloud.php';
+$cloud = new tagcloud();
+$cloud-&gt;addTag("tag-cloud");
+$cloud-&gt;addTag("programming");
+echo $cloud-&gt;render();
+</code></pre>
+
+<h3>Convert a string</h3>
+
+<pre><code>$cloud-&gt;addString("This is a tag-cloud script, written by Del Harvey.");
+$cloud-&gt;addString("I wrote this tag-cloud class because I just love writing code.");
+</code></pre>
+
+<h3>Adding multiple tags</h3>
+
+<pre><code>$cloud-&gt;addTags(array('tag-cloud','php','github'));
+</code></pre>
+
+<h3>Removing a tag</h3>
+
+<pre><code>$cloud-&gt;setRemoveTag('github');
+</code></pre>
+
+<h3>Removing multiple tags</h3>
+
+<pre><code>$cloud-&gt;setRemoveTags(array('del','harvey'));
+</code></pre>
+
+<h3>More complex adding</h3>
+
+<pre><code>$cloud-&gt;addTag(array('tag' =&gt; 'php', 'url' =&gt; '<a href="http://www.php.net">http://www.php.net</a>', 'colour' =&gt; 1));
+$cloud-&gt;addTag(array('tag' =&gt; 'ajax', 'url' =&gt; '<a href="http://www.php.net">http://www.php.net</a>', 'colour' =&gt; 2));
+$cloud-&gt;addTag(array('tag' =&gt; 'css', 'url' =&gt; '<a href="http://www.php.net">http://www.php.net</a>', 'colour' =&gt; 3));
+</code></pre>
+
+<h3>Set the minimum length required</h3>
+
+<pre><code>$cloud-&gt;setMinLength(3);
+</code></pre>
+
+<h3>Limiting the output</h3>
+
+<pre><code>$cloud-&gt;setLimit(10);
+</code></pre>
+
+<h3>Setting the order</h3>
+
+<h4>By tag in alphabetical order</h4>
+
+<pre><code>$cloud-&gt;setOrder('tag','ASC');
+</code></pre>
+
+<h4>By size value (calculated value)</h4>
+
+<pre><code>$cloud-&gt;setOrder('size','DESC');
+</code></pre>
+
+<h4>Using a custom field passed in (as array - see above 'more complex adding')</h4>
+
+<pre><code>$cloud-&gt;setOrder('colour','DESC');
+</code></pre>
+
+<h3>Outputting the cloud (shown above)</h3>
+
+<pre><code>echo $cloud-&gt;render();
+</code></pre>
+
+<h3>Example: Fetching tags from a database</h3>
+
+<pre><code>$cloud = new tagcloud();
+$getBooks = mysql_query("SELECT title FROM `tags`");
+if ($getBooks) {
+    while ($rowBooks = mysql_fetch_assoc($getBooks)) {
+        $cloud-&gt;addTag($rowBooks['title']);
+    }
+}
+$myCloud = $cloud-&gt;render('array');
+if (is_array($myCloud)) {
+    foreach ($myCloud as $key =&gt; $value) {
+        echo ' &lt;a href="./tags/'.urlencode($value['tag']).'" style="font-size: 1.'.($value['range']).'em"&gt;'.$value['tag'].'&lt;/a&gt; ';
+    }
+}
+</code></pre>
+
+<h3>Example: Fetching tags from a text file</h3>
+
+<pre><code>$cloud = new tagcloud();
+$f = 'tags.txt'; // Filename of the text file
+if ($h = fopen($f, 'r')) {
+    if (!feof($h)) {
+        do {
+            $c = fread($h, 4096);
+            $t = explode('|', $c);
+            foreach ($t as $k =&gt; $v) {
+                $cloud-&gt;addTag($v);
+            }
+        } while (!feof($h));
+    }
+}
+echo $cloud-&gt;render();
+</code></pre>
+      </section>
+      <footer>
+        <p>Project maintained by <a href="https://github.com/lotsofcode">lotsofcode</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="http://twitter.com/#!/michigangraham">mattgraham</a></small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-3968273-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
