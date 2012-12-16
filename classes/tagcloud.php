@@ -22,19 +22,19 @@
 	 *	Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA	02111-1307	USA
 	 *
 	 \************************************************************/
-	
+
 	class tagcloud
 	{
 		/**
 		 * Tag cloud version
 		 */
 		public $version = '3.0.0';
-		
+
 		/*
 		 * Tag array container
 		 */
 		protected $_tagsArray = array();
-		
+
 		/**
  		 * List of tags to remove from final output
 		 */
@@ -57,20 +57,20 @@
 
 		/*
 		 * Custom format output of tags
-		 * 		 
+		 *
 		 * transformation: upper and lower for change of case
-		 * trim: bool, applies trimming to tag		 		 		 		 
+		 * trim: bool, applies trimming to tag
 		 */
 		protected $_formatting = array(
 			'transformation' => 'lower',
-			'trim' => true			
+			'trim' => true
 		);
-		
+
 		/*
 		 * Constructor
 		 *
 		 * @param array $tags
-		 * 		 
+		 *
 		 * @return void
 		 */
 		public function __construct($tags = false)
@@ -85,7 +85,7 @@
 				}
 			}
 		}
-		
+
 		/*
 		 * Convert a string into a array
 		 *
@@ -103,9 +103,9 @@
 			}
 			$this->addTags($tagArray);
 		}
-		
+
 		/*
-		 * Parse tag into safe format 
+		 * Parse tag into safe format
 		 *
 		 * @param string $string
 		 *
@@ -127,12 +127,12 @@
 			}
 			return preg_replace('/[^\w ]/u', '', strip_tags($string));
 		}
-		
+
 		/*
 		 * Assign tag to array
 		 *
 		 * @param array $tagAttributes Tags or tag attributes array
-		 * 		 
+		 *
 		 * @return array $this->tagsArray
 		 */
 		public function addTag($tagAttributes = array())
@@ -155,7 +155,7 @@
 				$tagAttributes['size'] = ($this->_tagsArray[$tag]['size'] + $tagAttributes['size']);
 			} elseif (!empty($this->_tagsArray[$tag]['size'])) {
 				$tagAttributes['size'] = $this->_tagsArray[$tag]['size'];
-			}		
+			}
 			$this->_tagsArray[$tag] = $tagAttributes;
 			$this->addAttributes($tagAttributes);
 			return $this->_tagsArray[$tag];
@@ -190,7 +190,7 @@
 		 * Assign multiple tags to array
 		 *
 		 * @param array $tags
-		 * 		 
+		 *
 		 * @return void
 		 */
 		public function addTags($tags = array())
@@ -200,15 +200,15 @@
 			}
 			foreach ($tags as $tagAttributes) {
 				$this->addTag($tagAttributes);
-			}					
+			}
 		}
-		
+
 		/*
-		 * Sets a minimum string length for the 
+		 * Sets a minimum string length for the
 		 * tags to display
 		 *
-		 * @param int $minLength		 
-		 *		 
+		 * @param int $minLength
+		 *
 		 * @returns obj $this
 		 */
 		public function setMinLength($minLength)
@@ -216,11 +216,11 @@
 			$this->_minLength = $minLength;
 			return $this;
 		}
-		
+
 
 		/*
 		 * Gets the minimum length value
-		 *		 
+		 *
 		 * @returns void
 		 */
 		public function getMinLength()
@@ -232,8 +232,8 @@
 		/*
 		 * Sets a limit for the amount of clouds
 		 *
-		 * @param int $limit		 
-		 *		 
+		 * @param int $limit
+		 *
 		 * @returns obj $this
 		 */
 		public function setLimit($limit)
@@ -243,11 +243,11 @@
 		}
 
 		/*
-		 * Get the limit for the amount tags 
+		 * Get the limit for the amount tags
 		 * to display
 		 *
-		 * @param int $limit		 
-		 *		 
+		 * @param int $limit
+		 *
 		 * @returns int $this->_limit
 		 */
 		public function getLimit()
@@ -258,8 +258,8 @@
 		/*
 		 * Remove a tag from the array
 		 *
-		 * @param string $tag		 
-		 *		 
+		 * @param string $tag
+		 *
 		 * @returns obj $this
 		 */
 		public function setRemoveTag($tag)
@@ -271,8 +271,8 @@
 		/*
 		 * Remove multiple tags from the array
 		 *
-		 * @param array $tags		 
-		 *		 
+		 * @param array $tags
+		 *
 		 * @returns obj $this
 		 */
 		public function setRemoveTags($tags)
@@ -285,7 +285,7 @@
 
 		/*
 		 * Get the list of remove tags
-		 *		 
+		 *
 		 * @returns array $this->_removeTags
 		 */
 		public function getRemoveTags()
@@ -295,12 +295,12 @@
 
 		/*
 		 * Assign the order field and order direction of the array
-		 * 
-		 * Order by tag or size / defaults to random		 		 
+		 *
+		 * Order by tag or size / defaults to random
 		 *
 		 * @param array  $field
 		 * @param string $sortway
-		 *     		 
+		 *
 		 * @returns $this->orderBy
 		 */
 		public function setOrder($field, $direction = 'ASC')
@@ -310,7 +310,7 @@
 	        	'direction' => $direction
 			);
 	    }
-			
+
 		/*
 		 * Generate the output for each tag.
 		 *
@@ -350,7 +350,7 @@
 
 		/*
 		 * Removes tags from the whole array
-		 * 
+		 *
 		 * @returns array $this->_tagsArray
 		 */
 		protected function _remove()
@@ -371,7 +371,7 @@
 		 * @param array $unsortedArray
 		 * @param string $sortField
 		 * @param string $sortWay
-		 *     		 
+		 *
 		 * @returns array $unsortedArray
 		 */
 		protected function _order($unsortedArray, $sortField, $sortWay = 'SORT_ASC')
@@ -391,7 +391,7 @@
 			}
 			return $unsortedArray;
 		}
-		
+
 		/*
 		 * Parses the array and retuns
 		 * limited amount of items
@@ -459,7 +459,7 @@
 				}
 			}
 			return $max;
-		}	
+		}
 
 		/*
 		 * Shuffle associated names in array
@@ -478,11 +478,11 @@
 			}
 			return $this->_tagsArray;
 		}
-		
+
 		/*
 		 * Get the class range using a percentage
 		 *
-		 * @returns int $class The respective class 
+		 * @returns int $class The respective class
 		 * name based on the percentage value
 		 */
 		protected function _getClassFromPercent($percent)
@@ -503,7 +503,7 @@
 			elseif ($percent >= 20)
 				$class = 3;
 			elseif ($percent >= 10)
-				$class = 2;     
+				$class = 2;
 			elseif ($percent >= 5)
 				$class = 1;
 			else
