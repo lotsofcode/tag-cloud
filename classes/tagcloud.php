@@ -69,7 +69,7 @@
 		/**
 		 * Custom function to create the tag-output
 		 */
-		public $_htmlizeTagFunction = null;
+		protected $_htmlizeTagFunction = null;
 
 		/*
 		 * Constructor
@@ -314,6 +314,18 @@
 				'field' => $field,
 				'direction' => $direction
 			);
+		}
+
+		/*
+		 * Inject a custom function for generatinng the rendered HTML
+		 *
+		 * @param function $htmlizer
+		 *
+		 * @return $this->_htmlizeTagFunction
+		 */
+		public function setHtmlizeTagFunction($htmlizer)
+		{
+			return $this->_htmlizeTagFunction = $htmlizer;
 		}
 
 		/*
