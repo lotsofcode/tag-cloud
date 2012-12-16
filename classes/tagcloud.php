@@ -340,12 +340,25 @@
 					if ($returnType == 'array') {
 						$return [$tag] = $arrayInfo;
 					} elseif ($returnType == 'html') {
-						$return .= "<span class='tag size{$sizeRange}'> &nbsp; {$arrayInfo['tag']} &nbsp; </span>";
+						$return .= $this->htmlizeTag( $arrayInfo, $sizeRange );
 					}
 				}
 				return $return;
 			}
 			return false;
+		}
+
+		/**
+		 * Convert a tag into an html-snippet
+		 *
+		 * @param array  $arrayInfo
+		 * @param string $sizeRange
+		 *
+		 * @return string
+		 */
+		public function htmlizeTag($arrayInfo, $sizeRange)
+		{
+				return "<span class='tag size{$sizeRange}'> &nbsp; {$arrayInfo['tag']} &nbsp; </span>";
 		}
 
 		/*
