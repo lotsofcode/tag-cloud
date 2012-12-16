@@ -356,6 +356,11 @@
 		/**
 		 * Convert a tag into an html-snippet
 		 *
+		 * This function is mainly an anchor to decide if a user-supplied
+		 * custom function should be used or the normal output method.
+		 *
+		 * This will most likely only work in PHP >= 5.3
+		 *
 		 * @param array  $arrayInfo
 		 * @param string $sizeRange
 		 *
@@ -364,6 +369,9 @@
 		public function htmlizeTag($arrayInfo, $sizeRange)
 		{
 			if ( isset($this->_htmlizeTagFunction) ) {
+				// this cannot be writen in one line or the PHP interpreter will puke
+				// appearantly, it's okay to have a function in a variable,
+				// but it's not okay to have it in an instance-varriable.
 				$htmlizer = $this->_htmlizeTagFunction;
 				return $htmlizer($arrayInfo, $sizeRange);
 			} else {
