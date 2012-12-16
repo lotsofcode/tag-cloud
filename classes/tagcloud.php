@@ -66,6 +66,11 @@
 			'trim' => true
 		);
 
+		/**
+		 * Custom function to create the tag-output
+		 */
+		public $_htmlizeTagFunction = null;
+
 		/*
 		 * Constructor
 		 *
@@ -358,7 +363,12 @@
 		 */
 		public function htmlizeTag($arrayInfo, $sizeRange)
 		{
+			if ( isset($this->_htmlizeTagFunction) ) {
+				$htmlizer = $this->_htmlizeTagFunction;
+				return $htmlizer($arrayInfo, $sizeRange);
+			} else {
 				return "<span class='tag size{$sizeRange}'> &nbsp; {$arrayInfo['tag']} &nbsp; </span>";
+			}
 		}
 
 		/*
