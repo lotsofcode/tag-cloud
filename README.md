@@ -41,6 +41,13 @@
 #### Set the order
 	$cloud->setOrder('colour','DESC');
 
+#### Set a custom HTML output
+
+	$cloud->setHtmlizeTagFunction( function($tag, $size) {
+		$link = '<a href="'.$tag['url'].'">'.$tag['tag'].'</a>';
+		return "<span class='tag size{$size} colour-{$tag['colour']}'>{$link}</span> ";
+	});
+
 #### Outputting the cloud (shown above)
 
 	echo $cloud->render();
