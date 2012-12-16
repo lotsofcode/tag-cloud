@@ -36,12 +36,12 @@
 		protected $_tagsArray = array();
 
 		/**
- 		 * List of tags to remove from final output
+		 * List of tags to remove from final output
 		 */
 		protected $_removeTags = array();
 
 		/**
- 		 * Cached attributes for order comparison
+		 * Cached attributes for order comparison
 		 */
 		protected $_attributes = array();
 
@@ -124,7 +124,7 @@
 						$string = strtoupper($string);
 						break;
 					default:
-		      			$string = strtolower($string);
+						$string = strtolower($string);
 				}
 			}
 			if ($this->_formatting['trim']) {
@@ -310,11 +310,11 @@
 		 */
 		public function setOrder($field, $direction = 'ASC')
 		{
-	        return $this->orderBy = array(
-	        	'field' => $field,
-	        	'direction' => $direction
+			return $this->orderBy = array(
+				'field' => $field,
+				'direction' => $direction
 			);
-	    }
+		}
 
 		/*
 		 * Generate the output for each tag.
@@ -329,11 +329,11 @@
 				$this->_shuffle();
 			} else {
 				$orderDirection = strtolower($this->orderBy['direction']) == 'desc' ? 'SORT_DESC' : 'SORT_ASC';
-        		$this->_tagsArray = $this->_order(
-        			$this->_tagsArray,
-        			$this->orderBy['field'],
-        			$orderDirection
-        		);
+				$this->_tagsArray = $this->_order(
+					$this->_tagsArray,
+					$this->orderBy['field'],
+					$orderDirection
+				);
 			}
 			$this->_limit();
 			$max = $this->_getMax();
@@ -484,9 +484,9 @@
 				foreach ($this->_tagsArray as $cKey => $cVal) {
 					$c_size = $cVal['size'];
 					if ($c_size > $p_size) {
-			            $max = $c_size;
+						$max = $c_size;
 						$p_size = $c_size;
-			        }
+					}
 				}
 			}
 			return $max;
