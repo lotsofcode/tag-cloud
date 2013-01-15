@@ -66,4 +66,13 @@ class TagCloudTest extends \PHPUnit_Framework_TestCase
     $this->assertEquals(8, $tagCloud->calculateClassFromPercent(90));
     $this->assertEquals(9, $tagCloud->calculateClassFromPercent(100));
   }
+
+  function testRemovalOfTag()
+  {
+    $tagCloud = new TagCloud();
+    $tagCloud->addTags(array('test','removal','tags'));
+    $tagCloud->setRemoveTag('test');
+
+    $this->assertFalse(array_key_exists('test', $tagCloud->render('array')));
+  }
 }
