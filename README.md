@@ -9,7 +9,7 @@
 	$cloud->addTag("programming");
 	echo $cloud->render();
 
-#### Convert a string 
+#### Convert a string
 
 	$cloud->addString("This is a tag-cloud script, written by Del Harvey. I wrote this tag-cloud class because I just love writing code.");
 
@@ -53,3 +53,18 @@
 	echo $cloud->render();
 
 More usages on in a prettier format can be found here: http://lotsofcode.github.com/tag-cloud
+
+## Tests
+
+To run the unit test suite:
+
+```
+cd tests
+curl -s https://getcomposer.org/installer | php
+php composer.phar install
+./vendor/bin/phpunit Phergie/Irc/ParserTest.php
+```
+
+## Submitting pull requests
+
+Indentation style, size and encoding should be followed as per .editorconfig settings.
