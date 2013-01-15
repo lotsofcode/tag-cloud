@@ -62,7 +62,7 @@ To run the unit test suite:
 cd tests
 curl -s https://getcomposer.org/installer | php
 php composer.phar install
-./vendor/bin/phpunit Phergie/Irc/ParserTest.php
+./vendor/bin/phpunit lotsofcode/TagCloud/TagCloud.php
 ```
 
 ## Submitting pull requests
