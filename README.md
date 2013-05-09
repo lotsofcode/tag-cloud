@@ -1,10 +1,9 @@
 # PHP Tag Cloud
-## v3.0
+## v4.0
 
 #### Basic usage
 
-	include 'classes/tagcloud.php';
-	$cloud = new tagcloud();
+	$cloud = new TagCloud();
 	$cloud->addTag("tag-cloud");
 	$cloud->addTag("programming");
 	echo $cloud->render();
