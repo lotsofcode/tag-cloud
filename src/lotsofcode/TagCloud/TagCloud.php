@@ -2,11 +2,6 @@
 
 namespace lotsofcode\TagCloud;
 
-interface TagCloudEntityInterface
-{
-
-}
-
 class TagCloud
 {
 	/**
