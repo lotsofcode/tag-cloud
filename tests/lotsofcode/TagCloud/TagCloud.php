@@ -75,4 +75,29 @@ class TagCloudTest extends \PHPUnit_Framework_TestCase
 
     $this->assertFalse(array_key_exists('test', $tagCloud->render('array')));
   }
+
+  public function testCustomAttributes()
+  {
+    $tagCloud = new TagCloud();
+
+    $tags = array(
+      array(
+        'tag' => 'Hello',
+        'url' => 'http://hello.com'
+      ),
+      array(
+        'tag' => 'World',
+        'url' => 'http://world.com'
+      ),
+    );
+
+    foreach ($tags as $tag) {
+      $tagCloud->addTag(array('tag' => $tag['tag'], 'url' => $tag['url']));
+    }
+
+    $rendered = $tagCloud->render('array');
+
+    $this->assertSame('http://hello.com', $rendered['hello']['url']);
+    $this->assertSame('http://world.com', $rendered['world']['url']);
+  }
 }
