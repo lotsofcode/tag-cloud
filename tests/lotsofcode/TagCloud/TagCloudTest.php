@@ -123,4 +123,23 @@ class TagCloudTest extends \PHPUnit_Framework_TestCase
     $this->assertSame("hello", $keys[1]);
     $this->assertSame("world", $keys[2]);
   }
+
+  public function testHtmlizeFunction()
+  {
+    $tagCloud = new TagCloud();
+    $tagCloud->addTag("Howdy");
+
+    // default
+    $expected = "<span class='tag size9'> &nbsp; howdy &nbsp; </span>";
+    $this->assertSame($expected, $tagCloud->render());
+
+    // custom htmlize function
+    $htmlizeCloud = new TagCloud();
+    $htmlizeCloud->addTag("Howdy");
+    $htmlizeCloud->setHtmlizeTagFunction(function($arrayInfo) {
+      return '<p>' . $arrayInfo['tag'] . '</p>';
+    });
+
+    $this->assertSame("<p>howdy</p>", $htmlizeCloud->render('html'));
+  }
 }
