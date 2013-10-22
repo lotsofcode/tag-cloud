@@ -142,4 +142,25 @@ class TagCloudTest extends \PHPUnit_Framework_TestCase
 
     $this->assertSame("<p>howdy</p>", $htmlizeCloud->render('html'));
   }
+
+  public function testEmptyAttributeCache()
+  {
+    $tagCloud = new TagCloud();
+
+    $attributes = $tagCloud->getAttributes();
+
+    $this->assertNotContains("tag", $attributes);
+    $this->assertNotContains("size", $attributes);
+  }
+
+  public function testAttributeCache()
+  {
+    $tagCloud = new TagCloud();
+    $tagCloud->addTag("Howdy");
+
+    $attributes = $tagCloud->getAttributes();
+
+    $this->assertContains("tag", $attributes);
+    $this->assertContains("size", $attributes);
+  }
 }
