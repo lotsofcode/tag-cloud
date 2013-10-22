@@ -55,13 +55,17 @@ More usages on in a prettier format can be found here: http://lotsofcode.github.
 
 ## Tests
 
-To run the unit test suite:
+To run the unit test suite, first install the dependencies:
 
 ```
-cd tests
 curl -s https://getcomposer.org/installer | php
 php composer.phar install
-./vendor/bin/phpunit lotsofcode/TagCloud/TagCloud.php
+```
+
+Then execute phpunit in the root directory
+
+```
+./vendor/bin/phpunit
 ```
 
 ## Submitting pull requests
