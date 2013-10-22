@@ -13,7 +13,7 @@ class TagCloudTest extends \PHPUnit_Framework_TestCase
   /**
    * Tests invoke of class without any tags supplied
    */
-  public function __testEmptyTagCloudRendersNull()
+  public function testEmptyTagCloudRendersNull()
   {
     $tagCloud = new TagCloud();
     $this->assertEquals(null, $tagCloud->render());
@@ -22,7 +22,7 @@ class TagCloudTest extends \PHPUnit_Framework_TestCase
   /**
    * Tests size increment of tag entity
    */
-  public function __testAddingMultipleTagsIncreasesSizeKey()
+  public function testAddingMultipleTagsIncreasesSizeKey()
   {
     $tagCloud = new TagCloud();
     $tagCloud->addTag('Foo');
@@ -37,7 +37,7 @@ class TagCloudTest extends \PHPUnit_Framework_TestCase
    * Tests creation of cloud with tags
    * provided directly to the contructor
    */
-  public function __testTagCloudCreatedFromContructor()
+  public function testTagCloudCreatedFromContructor()
   {
     $input = array('foo','bar','baz');
 
@@ -49,7 +49,7 @@ class TagCloudTest extends \PHPUnit_Framework_TestCase
     }
   }
 
-  public function __testCustomTagEntity()
+  public function testCustomTagEntity()
   {
     $tagCloud = new TagCloud();
 
@@ -67,7 +67,7 @@ class TagCloudTest extends \PHPUnit_Framework_TestCase
     $this->assertEquals(9, $tagCloud->calculateClassFromPercent(100));
   }
 
-  function __testRemovalOfTag()
+  function testRemovalOfTag()
   {
     $tagCloud = new TagCloud();
     $tagCloud->addTags(array('test','removal','tags'));
@@ -76,7 +76,7 @@ class TagCloudTest extends \PHPUnit_Framework_TestCase
     $this->assertFalse(array_key_exists('test', $tagCloud->render('array')));
   }
 
-  public function __testCustomAttributes()
+  public function testCustomAttributes()
   {
     $tagCloud = new TagCloud();
 
