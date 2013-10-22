@@ -141,7 +141,7 @@ class TagCloud
 			$tagAttributes['size'] = $this->_tagsArray[$tag]['size'];
 		}
 		$this->_tagsArray[$tag] = $tagAttributes;
-		//$this->addAttributes($tagAttributes);
+		$this->addAttributes($tagAttributes);
 		return $this->_tagsArray[$tag];
 	}
 
@@ -283,7 +283,7 @@ class TagCloud
 	 * Order by tag or size / defaults to random
 	 *
 	 * @param array  $field
-	 * @param string $sortway
+	 * @param string $direction
 	 *
 	 * @returns $this->orderBy
 	 */
@@ -326,7 +326,8 @@ class TagCloud
 				$orderDirection
 			);
 		}
-		$this->_limit();
+
+    $this->_limit();
 		$max = $this->_getMax();
 		if (count($this->_tagsArray)) {
 			$return = ($returnType == 'html' ? '' : ($returnType == 'array' ? array() : ''));
@@ -511,7 +512,7 @@ class TagCloud
 	protected function _getClassFromPercent($percent)
 	{
 		$class = floor(($percent / 10));
-		
+
 		if ($percent >= 5) {
 			$class++;
 		}

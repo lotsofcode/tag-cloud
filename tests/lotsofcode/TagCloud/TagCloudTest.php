@@ -13,7 +13,7 @@ class TagCloudTest extends \PHPUnit_Framework_TestCase
   /**
    * Tests invoke of class without any tags supplied
    */
-  public function testEmptyTagCloudRendersNull()
+  public function __testEmptyTagCloudRendersNull()
   {
     $tagCloud = new TagCloud();
     $this->assertEquals(null, $tagCloud->render());
@@ -22,7 +22,7 @@ class TagCloudTest extends \PHPUnit_Framework_TestCase
   /**
    * Tests size increment of tag entity
    */
-  public function testAddingMultipleTagsIncreasesSizeKey()
+  public function __testAddingMultipleTagsIncreasesSizeKey()
   {
     $tagCloud = new TagCloud();
     $tagCloud->addTag('Foo');
@@ -37,7 +37,7 @@ class TagCloudTest extends \PHPUnit_Framework_TestCase
    * Tests creation of cloud with tags
    * provided directly to the contructor
    */
-  public function testTagCloudCreatedFromContructor()
+  public function __testTagCloudCreatedFromContructor()
   {
     $input = array('foo','bar','baz');
 
@@ -49,7 +49,7 @@ class TagCloudTest extends \PHPUnit_Framework_TestCase
     }
   }
 
-  public function testCustomTagEntity()
+  public function __testCustomTagEntity()
   {
     $tagCloud = new TagCloud();
 
@@ -67,7 +67,7 @@ class TagCloudTest extends \PHPUnit_Framework_TestCase
     $this->assertEquals(9, $tagCloud->calculateClassFromPercent(100));
   }
 
-  function testRemovalOfTag()
+  function __testRemovalOfTag()
   {
     $tagCloud = new TagCloud();
     $tagCloud->addTags(array('test','removal','tags'));
@@ -76,7 +76,7 @@ class TagCloudTest extends \PHPUnit_Framework_TestCase
     $this->assertFalse(array_key_exists('test', $tagCloud->render('array')));
   }
 
-  public function testCustomAttributes()
+  public function __testCustomAttributes()
   {
     $tagCloud = new TagCloud();
 
@@ -99,5 +99,28 @@ class TagCloudTest extends \PHPUnit_Framework_TestCase
 
     $this->assertSame('http://hello.com', $rendered['hello']['url']);
     $this->assertSame('http://world.com', $rendered['world']['url']);
+  }
+
+  public function testOrderingBySize()
+  {
+    $tagCloud = new TagCloud();
+
+    $tagCloud->addTag("hello");
+    $tagCloud->addTag("hello");
+    $tagCloud->addTag("hello");
+    $tagCloud->addTag("beautiful");
+    $tagCloud->addTag("beautiful");
+    $tagCloud->addTag("beautiful");
+    $tagCloud->addTag("world");
+
+    $tagCloud->setOrder('size', 'DESC');
+
+    $cloud = $tagCloud->render('array');
+
+    $keys = array_keys($cloud);
+
+    $this->assertSame("beautiful", $keys[0]);
+    $this->assertSame("hello", $keys[1]);
+    $this->assertSame("world", $keys[2]);
   }
 }
