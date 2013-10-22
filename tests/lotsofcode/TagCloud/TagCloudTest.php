@@ -179,4 +179,18 @@ class TagCloudTest extends \PHPUnit_Framework_TestCase
 
     $this->assertSame("Greeting", $cloud['howdy']['description']);
   }
+
+  public function testCharacterConversion()
+  {
+    $tagCloud = new TagCloud();
+
+    $tagCloud->addTag("example");
+    $tagCloud->addTag("éxample");
+
+    $cloud = $tagCloud->render("array");
+
+    $this->assertCount(1, $cloud);
+    $this->assertArrayHasKey("example", $cloud);
+    $this->assertArrayNotHasKey("éxample", $cloud);
+  }
 }
