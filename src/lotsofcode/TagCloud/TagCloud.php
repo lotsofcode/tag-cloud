@@ -360,12 +360,14 @@ class TagCloud
 	 */
 	public function htmlizeTag($arrayInfo, $sizeRange)
 	{
-		if ( isset($this->_htmlizeTagFunction) ) {
-			// this cannot be writen in one line or the PHP interpreter will puke
-			// appearantly, it's okay to have a function in a variable,
-			// but it's not okay to have it in an instance-varriable.
-			$htmlizer = $this->_htmlizeTagFunction;
-			return $htmlizer($arrayInfo, $sizeRange);
+    $htmlizeTagFunction = $this->_htmlizeTagFunction;
+		if (isset($htmlizeTagFunction) &&
+        is_callable($htmlizeTagFunction)
+    ) {
+			// this cannot be written in one line or the PHP interpreter will puke
+			// apparently, it's okay to have a function in a variable,
+			// but it's not okay to have it in an instance-variable.
+			return $htmlizeTagFunction($arrayInfo, $sizeRange);
 		} else {
 			return "<span class='tag size{$sizeRange}'> &nbsp; {$arrayInfo['tag']} &nbsp; </span>";
 		}
