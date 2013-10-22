@@ -1,6 +1,8 @@
 # PHP Tag Cloud
 ## v4.0
 
+[![Build Status](https://travis-ci.org/lotsofcode/tag-cloud.png?branch=master)](https://travis-ci.org/lotsofcode/tag-cloud)
+
 #### Basic usage
 
 	$cloud = new TagCloud();
