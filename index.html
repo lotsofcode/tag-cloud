@@ -4,167 +4,141 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>PHP Tag cloud by lotsofcode</title>
+
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script src="javascripts/main.js"></script>
-    <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+    <script src="javascripts/scale.fix.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
   </head>
   <body>
-
-      <header>
-        <h1>PHP Tag cloud</h1>
-        <p>A PHP tag cloud class</p>
-      </header>
-
-      <div id="banner">
-        <span id="logo"></span>
-
-        <a href="https://github.com/lotsofcode/tag-cloud" class="button fork"><strong>Fork On GitHub</strong></a>
-        <div class="downloads">
-          <span>Downloads:</span>
-          <ul>
-            <li><a href="https://github.com/lotsofcode/tag-cloud/zipball/master" class="button">ZIP</a></li>
-            <li><a href="https://github.com/lotsofcode/tag-cloud/tarball/master" class="button">TAR</a></li>
-          </ul>
-        </div>
-
-      </div><!-- end banner -->
-
     <div class="wrapper">
-      <nav>
-        <ul></ul>
-      </nav>
+      <header>
+        <h1 class="header">PHP Tag cloud</h1>
+        <p class="header">A PHP tag cloud class</p>
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/lotsofcode/tag-cloud/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/lotsofcode/tag-cloud/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/lotsofcode/tag-cloud">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/lotsofcode">lotsofcode</a></p>
+
+
+      </header>
       <section>
+        <h1>
+<a name="php-tag-cloud" class="anchor" href="#php-tag-cloud"><span class="octicon octicon-link"></span></a>PHP Tag Cloud</h1>
 
-        <h3>Basic usage</h3>
+<h2>
+<a name="v40" class="anchor" href="#v40"><span class="octicon octicon-link"></span></a>v4.0</h2>
 
-<script type="text/javascript"><!--
-google_ad_client = "ca-pub-5888951508371997";
-/* php tag cloud - header */
-google_ad_slot = "2743136539";
-google_ad_width = 468;
-google_ad_height = 60;
-//-->
-</script>
-<script type="text/javascript"
-src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-</script>
+<p><a href="https://travis-ci.org/lotsofcode/tag-cloud"><img src="https://travis-ci.org/lotsofcode/tag-cloud.png?branch=master" alt="Build Status"></a></p>
 
+<h4>
+<a name="basic-usage" class="anchor" href="#basic-usage"><span class="octicon octicon-link"></span></a>Basic usage</h4>
 
-<pre><code>include 'classes/tagcloud.php';
-$cloud = new tagcloud();
+<pre><code>$cloud = new TagCloud();
 $cloud-&gt;addTag("tag-cloud");
 $cloud-&gt;addTag("programming");
 echo $cloud-&gt;render();
 </code></pre>
 
-<h3>Convert a string</h3>
+<h4>
+<a name="convert-a-string" class="anchor" href="#convert-a-string"><span class="octicon octicon-link"></span></a>Convert a string</h4>
 
-<pre><code>$cloud-&gt;addString("This is a tag-cloud script, written by Del Harvey.");
-$cloud-&gt;addString("I wrote this tag-cloud class because I just love writing code.");
+<pre><code>$cloud-&gt;addString("This is a tag-cloud script, written by Del Harvey. I wrote this tag-cloud class because I just love writing code.");
 </code></pre>
 
-<h3>Adding multiple tags</h3>
+<h4>
+<a name="adding-multiple-tags" class="anchor" href="#adding-multiple-tags"><span class="octicon octicon-link"></span></a>Adding multiple tags</h4>
 
 <pre><code>$cloud-&gt;addTags(array('tag-cloud','php','github'));
 </code></pre>
 
-<h3>Removing a tag</h3>
+<h4>
+<a name="removing-a-tag" class="anchor" href="#removing-a-tag"><span class="octicon octicon-link"></span></a>Removing a tag</h4>
 
 <pre><code>$cloud-&gt;setRemoveTag('github');
 </code></pre>
 
-<h3>Removing multiple tags</h3>
+<h4>
+<a name="removing-multiple-tags" class="anchor" href="#removing-multiple-tags"><span class="octicon octicon-link"></span></a>Removing multiple tags</h4>
 
 <pre><code>$cloud-&gt;setRemoveTags(array('del','harvey'));
 </code></pre>
 
-<h3>More complex adding</h3>
+<h4>
+<a name="more-complex-adding" class="anchor" href="#more-complex-adding"><span class="octicon octicon-link"></span></a>More complex adding</h4>
 
-<pre><code>$cloud-&gt;addTag(array('tag' =&gt; 'php', 'url' =&gt; '<a href="http://www.php.net">http://www.php.net</a>', 'colour' =&gt; 1));
-$cloud-&gt;addTag(array('tag' =&gt; 'ajax', 'url' =&gt; '<a href="http://www.php.net">http://www.php.net</a>', 'colour' =&gt; 2));
-$cloud-&gt;addTag(array('tag' =&gt; 'css', 'url' =&gt; '<a href="http://www.php.net">http://www.php.net</a>', 'colour' =&gt; 3));
+<pre><code>$cloud-&gt;addTag(array('tag' =&gt; 'php', 'url' =&gt; 'http://www.php.net', 'colour' =&gt; 1));
+$cloud-&gt;addTag(array('tag' =&gt; 'ajax', 'url' =&gt; 'http://www.php.net', 'colour' =&gt; 2));
+$cloud-&gt;addTag(array('tag' =&gt; 'css', 'url' =&gt; 'http://www.php.net', 'colour' =&gt; 3));
 </code></pre>
 
-<h3>Set the minimum length required</h3>
+<h4>
+<a name="set-the-minimum-length-required" class="anchor" href="#set-the-minimum-length-required"><span class="octicon octicon-link"></span></a>Set the minimum length required</h4>
 
 <pre><code>$cloud-&gt;setMinLength(3);
 </code></pre>
 
-<h3>Limiting the output</h3>
+<h4>
+<a name="limiting-the-output" class="anchor" href="#limiting-the-output"><span class="octicon octicon-link"></span></a>Limiting the output</h4>
 
 <pre><code>$cloud-&gt;setLimit(10);
 </code></pre>
 
-<h3>Setting the order</h3>
-
-<h4>By tag in alphabetical order</h4>
-
-<pre><code>$cloud-&gt;setOrder('tag','ASC');
-</code></pre>
-
-<h4>By size value (calculated value)</h4>
-
-<pre><code>$cloud-&gt;setOrder('size','DESC');
-</code></pre>
-
-<h4>Using a custom field passed in (as array - see above 'more complex adding')</h4>
+<h4>
+<a name="set-the-order" class="anchor" href="#set-the-order"><span class="octicon octicon-link"></span></a>Set the order</h4>
 
 <pre><code>$cloud-&gt;setOrder('colour','DESC');
 </code></pre>
 
-<h3>Outputting the cloud (shown above)</h3>
+<h4>
+<a name="set-a-custom-html-output" class="anchor" href="#set-a-custom-html-output"><span class="octicon octicon-link"></span></a>Set a custom HTML output</h4>
+
+<pre><code>$cloud-&gt;setHtmlizeTagFunction( function($tag, $size) {
+    $link = '&lt;a href="'.$tag['url'].'"&gt;'.$tag['tag'].'&lt;/a&gt;';
+    return "&lt;span class='tag size{$size} colour-{$tag['colour']}'&gt;{$link}&lt;/span&gt; ";
+});
+</code></pre>
+
+<h4>
+<a name="outputting-the-cloud-shown-above" class="anchor" href="#outputting-the-cloud-shown-above"><span class="octicon octicon-link"></span></a>Outputting the cloud (shown above)</h4>
 
 <pre><code>echo $cloud-&gt;render();
 </code></pre>
 
-<h3>Example: Fetching tags from a database</h3>
+<p>More usages on in a prettier format can be found here: <a href="http://lotsofcode.github.com/tag-cloud">http://lotsofcode.github.com/tag-cloud</a></p>
 
-<pre><code>$cloud = new tagcloud();
-$getBooks = mysql_query("SELECT title FROM `tags`");
-if ($getBooks) {
-    while ($rowBooks = mysql_fetch_assoc($getBooks)) {
-        $cloud-&gt;addTag($rowBooks['title']);
-    }
-}
-$myCloud = $cloud-&gt;render('array');
-if (is_array($myCloud)) {
-    foreach ($myCloud as $key =&gt; $value) {
-        echo ' &lt;a href="./tags/'.urlencode($value['tag']).'" style="font-size: 1.'.($value['range']).'em"&gt;'.$value['tag'].'&lt;/a&gt; ';
-    }
-}
+<h2>
+<a name="tests" class="anchor" href="#tests"><span class="octicon octicon-link"></span></a>Tests</h2>
+
+<p>To run the unit test suite, first install the dependencies:</p>
+
+<pre><code>curl -s https://getcomposer.org/installer | php
+php composer.phar install
 </code></pre>
 
-<h3>Example: Fetching tags from a text file</h3>
+<p>Then execute phpunit in the root directory</p>
 
-<pre><code>$cloud = new tagcloud();
-$f = 'tags.txt'; // Filename of the text file
-if ($h = fopen($f, 'r')) {
-    if (!feof($h)) {
-        do {
-            $c = fread($h, 4096);
-            $t = explode('|', $c);
-            foreach ($t as $k =&gt; $v) {
-                $cloud-&gt;addTag($v);
-            }
-        } while (!feof($h));
-    }
-}
-echo $cloud-&gt;render();
+<pre><code>./vendor/bin/phpunit
 </code></pre>
+
+<h2>
+<a name="submitting-pull-requests" class="anchor" href="#submitting-pull-requests"><span class="octicon octicon-link"></span></a>Submitting pull requests</h2>
+
+<p>Indentation style, size and encoding should be followed as per .editorconfig settings.</p>
       </section>
       <footer>
-        <p>Project maintained by <a href="https://github.com/lotsofcode">lotsofcode</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="http://twitter.com/#!/michigangraham">mattgraham</a></small></p>
+        <p><small>Hosted on <a href="http://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
       </footer>
     </div>
-    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
-              <script type="text/javascript">
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		          <script type="text/javascript">
             var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
             document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
           </script>
