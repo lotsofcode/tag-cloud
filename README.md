@@ -5,53 +5,77 @@
 
 #### Basic usage
 
-	$cloud = new TagCloud();
-	$cloud->addTag("tag-cloud");
-	$cloud->addTag("programming");
-	echo $cloud->render();
+```php
+$cloud = new TagCloud();
+$cloud->addTag("tag-cloud");
+$cloud->addTag("programming");
+echo $cloud->render();
+```
 
 #### Convert a string
 
-	$cloud->addString("This is a tag-cloud script, written by Del Harvey. I wrote this tag-cloud class because I just love writing code.");
+```php
+$cloud->addString("This is a tag-cloud script, written by Del Harvey. I wrote this tag-cloud class because I just love writing code.");
+```
 
 #### Adding multiple tags
 
-	$cloud->addTags(array('tag-cloud','php','github'));
+```php
+$cloud->addTags(array('tag-cloud','php','github'));
+```
 
 #### Removing a tag
 
-	$cloud->setRemoveTag('github');
+```php
+$cloud->setRemoveTag('github');
+```
 
 #### Removing multiple tags
 
-	$cloud->setRemoveTags(array('del','harvey'));
+```php
+$cloud->setRemoveTags(array('del','harvey'));
+```
 
 #### More complex adding
 
-	$cloud->addTag(array('tag' => 'php', 'url' => 'http://www.php.net', 'colour' => 1));
-	$cloud->addTag(array('tag' => 'ajax', 'url' => 'http://www.php.net', 'colour' => 2));
-	$cloud->addTag(array('tag' => 'css', 'url' => 'http://www.php.net', 'colour' => 3));
+```php
+$cloud->addTag(array('tag' => 'php', 'url' => 'http://www.php.net', 'colour' => 1));
+$cloud->addTag(array('tag' => 'ajax', 'url' => 'http://www.php.net', 'colour' => 2));
+$cloud->addTag(array('tag' => 'css', 'url' => 'http://www.php.net', 'colour' => 3));
+```
 
 #### Set the minimum length required
 
-	$cloud->setMinLength(3);
+```php
+$cloud->setMinLength(3);
+```
 
 #### Limiting the output
-	$cloud->setLimit(10);
+
+```php
+$cloud->setLimit(10);
+```
 
 #### Set the order
-	$cloud->setOrder('colour','DESC');
+
+```php
+$cloud->setOrder('colour','DESC');
+```
 
 #### Set a custom HTML output
 
-	$cloud->setHtmlizeTagFunction(function($tag, $size) use ($baseUrl) {
-		$link = '<a href="'.$baseUrl.'/'.$tag['url'].'">'.$tag['tag'].'</a>';
-		return "<span class='tag size{$size} colour-{$tag['colour']}'>{$link}</span> ";
-	});
+```php
+$cloud->setHtmlizeTagFunction(function($tag, $size) use ($baseUrl) {
+  $link = '<a href="'.$baseUrl.'/'.$tag['url'].'">'.$tag['tag'].'</a>';
+  return "<span class='tag size{$size} colour-{$tag['colour']}'>{$link}</span> ";
+});
+```
 
 #### Outputting the cloud (shown above)
 
-	echo $cloud->render();
+```php
+echo $cloud->render();
+```
 
 #### Transliteration
 
@@ -59,7 +83,9 @@ By default, all accented characters will be converted into their non-accented eq
 this is to circumvent duplicate similar tags in the same cloud, to disable this functionality
 and display the UTF-8 characters you can do the following:
 
-    $tagCloud->setOption('transliterate', false);
+```php
+$tagCloud->setOption('transliterate', false);
+```
 
 More usages on in a prettier format can be found here: http://lotsofcode.github.com/tag-cloud
 
@@ -67,14 +93,14 @@ More usages on in a prettier format can be found here: http://lotsofcode.github.
 
 To run the unit test suite, first install the dependencies:
 
-```
+```bash
 curl -s https://getcomposer.org/installer | php
 php composer.phar install
 ```
 
 Then execute phpunit in the root directory
 
-```
+```bash
 ./vendor/bin/phpunit
 ```
 
