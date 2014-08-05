@@ -44,14 +44,22 @@
 
 #### Set a custom HTML output
 
-	$cloud->setHtmlizeTagFunction( function($tag, $size) {
-		$link = '<a href="'.$tag['url'].'">'.$tag['tag'].'</a>';
+	$cloud->setHtmlizeTagFunction(function($tag, $size) use ($baseUrl) {
+		$link = '<a href="'.$baseUrl.'/'.$tag['url'].'">'.$tag['tag'].'</a>';
 		return "<span class='tag size{$size} colour-{$tag['colour']}'>{$link}</span> ";
 	});
 
 #### Outputting the cloud (shown above)
 
 	echo $cloud->render();
+
+#### Transliteration
+
+By default, all accented characters will be converted into their non-accented equivalent,
+this is to circumvent duplicate similar tags in the same cloud, to disable this functionality
+and display the UTF-8 characters you can do the following:
+
+    $tagCloud->setOption('transliterate', false);
 
 More usages on in a prettier format can be found here: http://lotsofcode.github.com/tag-cloud
 

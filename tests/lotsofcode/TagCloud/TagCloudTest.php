@@ -39,7 +39,7 @@ class TagCloudTest extends \PHPUnit_Framework_TestCase
    */
   public function testTagCloudCreatedFromContructor()
   {
-    $input = array('foo','bar','baz');
+    $input = array('foo', 'bar', 'baz');
 
     $tagCloud = new TagCloud($input);
     $rendered = $tagCloud->render('array');
@@ -70,7 +70,7 @@ class TagCloudTest extends \PHPUnit_Framework_TestCase
   function testRemovalOfTag()
   {
     $tagCloud = new TagCloud();
-    $tagCloud->addTags(array('test','removal','tags'));
+    $tagCloud->addTags(array('test', 'removal', 'tags'));
     $tagCloud->setRemoveTag('test');
 
     $this->assertFalse(array_key_exists('test', $tagCloud->render('array')));
@@ -136,7 +136,7 @@ class TagCloudTest extends \PHPUnit_Framework_TestCase
     // custom htmlize function
     $htmlizeCloud = new TagCloud();
     $htmlizeCloud->addTag("Howdy");
-    $htmlizeCloud->setHtmlizeTagFunction(function($arrayInfo) {
+    $htmlizeCloud->setHtmlizeTagFunction(function ($arrayInfo) {
       return '<p>' . $arrayInfo['tag'] . '</p>';
     });
 
@@ -180,38 +180,38 @@ class TagCloudTest extends \PHPUnit_Framework_TestCase
     $this->assertSame("Greeting", $cloud['howdy']['description']);
   }
 
-    public function testNoTransliterate()
-    {
-        $tagCloud = new TagCloud();
+  public function testNoTransliterate()
+  {
+    $tagCloud = new TagCloud();
 
-        $tagCloud->setFormatting('transliterate', false);
+    $tagCloud->setOption('transliterate', false);
 
-        $this->assertSame(false, $tagCloud->getFormatting("transliterate"));
+    $this->assertSame(false, $tagCloud->getOption("transliterate"));
 
-        $tagCloud->addTag("example");
-        $tagCloud->addTag("éxample");
+    $tagCloud->addTag("example");
+    $tagCloud->addTag("éxample");
 
-        $cloud = $tagCloud->render("array");
+    $cloud = $tagCloud->render("array");
 
-        $this->assertCount(2, $cloud);
-        $this->assertArrayHasKey("example", $cloud);
-        $this->assertArrayHasKey("éxample", $cloud);
-    }
+    $this->assertCount(2, $cloud);
+    $this->assertArrayHasKey("example", $cloud);
+    $this->assertArrayHasKey("éxample", $cloud);
+  }
 
-    public function testTransliterate()
-    {
-        $tagCloud = new TagCloud();
+  public function testTransliterate()
+  {
+    $tagCloud = new TagCloud();
 
-        // transliterate should be default behaviour
-        $this->assertSame(true, $tagCloud->getFormatting("transliterate"));
+    // transliterate should be default behaviour
+    $this->assertSame(true, $tagCloud->getOption("transliterate"));
 
-        $tagCloud->addTag("myexample");
-        $tagCloud->addTag("myéxample");
+    $tagCloud->addTag("myexample");
+    $tagCloud->addTag("myéxample");
 
-        $cloud = $tagCloud->render("array");
+    $cloud = $tagCloud->render("array");
 
-        $this->assertCount(1, $cloud);
-        $this->assertArrayHasKey("myexample", $cloud);
-        $this->assertArrayNotHasKey("myéxample", $cloud);
-    }
+    $this->assertCount(1, $cloud);
+    $this->assertArrayHasKey("myexample", $cloud);
+    $this->assertArrayNotHasKey("myéxample", $cloud);
+  }
 }
