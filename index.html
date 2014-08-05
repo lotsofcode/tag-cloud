@@ -34,83 +34,93 @@
 <a name="php-tag-cloud" class="anchor" href="#php-tag-cloud"><span class="octicon octicon-link"></span></a>PHP Tag Cloud</h1>
 
 <h2>
-<a name="v40" class="anchor" href="#v40"><span class="octicon octicon-link"></span></a>v4.0</h2>
+<a name="v401" class="anchor" href="#v401"><span class="octicon octicon-link"></span></a>v4.0.1</h2>
 
 <p><a href="https://travis-ci.org/lotsofcode/tag-cloud"><img src="https://travis-ci.org/lotsofcode/tag-cloud.png?branch=master" alt="Build Status"></a></p>
 
 <h4>
 <a name="basic-usage" class="anchor" href="#basic-usage"><span class="octicon octicon-link"></span></a>Basic usage</h4>
 
-<pre><code>$cloud = new TagCloud();
-$cloud-&gt;addTag("tag-cloud");
-$cloud-&gt;addTag("programming");
-echo $cloud-&gt;render();
-</code></pre>
+<div class="highlight highlight-php"><pre><span class="nv">$cloud</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">TagCloud</span><span class="p">();</span>
+<span class="nv">$cloud</span><span class="o">-&gt;</span><span class="na">addTag</span><span class="p">(</span><span class="s2">"tag-cloud"</span><span class="p">);</span>
+<span class="nv">$cloud</span><span class="o">-&gt;</span><span class="na">addTag</span><span class="p">(</span><span class="s2">"programming"</span><span class="p">);</span>
+<span class="k">echo</span> <span class="nv">$cloud</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">();</span>
+</pre></div>
 
 <h4>
 <a name="convert-a-string" class="anchor" href="#convert-a-string"><span class="octicon octicon-link"></span></a>Convert a string</h4>
 
-<pre><code>$cloud-&gt;addString("This is a tag-cloud script, written by Del Harvey. I wrote this tag-cloud class because I just love writing code.");
-</code></pre>
+<div class="highlight highlight-php"><pre><span class="nv">$cloud</span><span class="o">-&gt;</span><span class="na">addString</span><span class="p">(</span><span class="s2">"This is a tag-cloud script, written by Del Harvey. I wrote this tag-cloud class because I just love writing code."</span><span class="p">);</span>
+</pre></div>
 
 <h4>
 <a name="adding-multiple-tags" class="anchor" href="#adding-multiple-tags"><span class="octicon octicon-link"></span></a>Adding multiple tags</h4>
 
-<pre><code>$cloud-&gt;addTags(array('tag-cloud','php','github'));
-</code></pre>
+<div class="highlight highlight-php"><pre><span class="nv">$cloud</span><span class="o">-&gt;</span><span class="na">addTags</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s1">'tag-cloud'</span><span class="p">,</span><span class="s1">'php'</span><span class="p">,</span><span class="s1">'github'</span><span class="p">));</span>
+</pre></div>
 
 <h4>
 <a name="removing-a-tag" class="anchor" href="#removing-a-tag"><span class="octicon octicon-link"></span></a>Removing a tag</h4>
 
-<pre><code>$cloud-&gt;setRemoveTag('github');
-</code></pre>
+<div class="highlight highlight-php"><pre><span class="nv">$cloud</span><span class="o">-&gt;</span><span class="na">setRemoveTag</span><span class="p">(</span><span class="s1">'github'</span><span class="p">);</span>
+</pre></div>
 
 <h4>
 <a name="removing-multiple-tags" class="anchor" href="#removing-multiple-tags"><span class="octicon octicon-link"></span></a>Removing multiple tags</h4>
 
-<pre><code>$cloud-&gt;setRemoveTags(array('del','harvey'));
-</code></pre>
+<div class="highlight highlight-php"><pre><span class="nv">$cloud</span><span class="o">-&gt;</span><span class="na">setRemoveTags</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s1">'del'</span><span class="p">,</span><span class="s1">'harvey'</span><span class="p">));</span>
+</pre></div>
 
 <h4>
 <a name="more-complex-adding" class="anchor" href="#more-complex-adding"><span class="octicon octicon-link"></span></a>More complex adding</h4>
 
-<pre><code>$cloud-&gt;addTag(array('tag' =&gt; 'php', 'url' =&gt; 'http://www.php.net', 'colour' =&gt; 1));
-$cloud-&gt;addTag(array('tag' =&gt; 'ajax', 'url' =&gt; 'http://www.php.net', 'colour' =&gt; 2));
-$cloud-&gt;addTag(array('tag' =&gt; 'css', 'url' =&gt; 'http://www.php.net', 'colour' =&gt; 3));
-</code></pre>
+<div class="highlight highlight-php"><pre><span class="nv">$cloud</span><span class="o">-&gt;</span><span class="na">addTag</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s1">'tag'</span> <span class="o">=&gt;</span> <span class="s1">'php'</span><span class="p">,</span> <span class="s1">'url'</span> <span class="o">=&gt;</span> <span class="s1">'http://www.php.net'</span><span class="p">,</span> <span class="s1">'colour'</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">));</span>
+<span class="nv">$cloud</span><span class="o">-&gt;</span><span class="na">addTag</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s1">'tag'</span> <span class="o">=&gt;</span> <span class="s1">'ajax'</span><span class="p">,</span> <span class="s1">'url'</span> <span class="o">=&gt;</span> <span class="s1">'http://www.php.net'</span><span class="p">,</span> <span class="s1">'colour'</span> <span class="o">=&gt;</span> <span class="mi">2</span><span class="p">));</span>
+<span class="nv">$cloud</span><span class="o">-&gt;</span><span class="na">addTag</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s1">'tag'</span> <span class="o">=&gt;</span> <span class="s1">'css'</span><span class="p">,</span> <span class="s1">'url'</span> <span class="o">=&gt;</span> <span class="s1">'http://www.php.net'</span><span class="p">,</span> <span class="s1">'colour'</span> <span class="o">=&gt;</span> <span class="mi">3</span><span class="p">));</span>
+</pre></div>
 
 <h4>
 <a name="set-the-minimum-length-required" class="anchor" href="#set-the-minimum-length-required"><span class="octicon octicon-link"></span></a>Set the minimum length required</h4>
 
-<pre><code>$cloud-&gt;setMinLength(3);
-</code></pre>
+<div class="highlight highlight-php"><pre><span class="nv">$cloud</span><span class="o">-&gt;</span><span class="na">setMinLength</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+</pre></div>
 
 <h4>
 <a name="limiting-the-output" class="anchor" href="#limiting-the-output"><span class="octicon octicon-link"></span></a>Limiting the output</h4>
 
-<pre><code>$cloud-&gt;setLimit(10);
-</code></pre>
+<div class="highlight highlight-php"><pre><span class="nv">$cloud</span><span class="o">-&gt;</span><span class="na">setLimit</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+</pre></div>
 
 <h4>
 <a name="set-the-order" class="anchor" href="#set-the-order"><span class="octicon octicon-link"></span></a>Set the order</h4>
 
-<pre><code>$cloud-&gt;setOrder('colour','DESC');
-</code></pre>
+<div class="highlight highlight-php"><pre><span class="nv">$cloud</span><span class="o">-&gt;</span><span class="na">setOrder</span><span class="p">(</span><span class="s1">'colour'</span><span class="p">,</span><span class="s1">'DESC'</span><span class="p">);</span>
+</pre></div>
 
 <h4>
 <a name="set-a-custom-html-output" class="anchor" href="#set-a-custom-html-output"><span class="octicon octicon-link"></span></a>Set a custom HTML output</h4>
 
-<pre><code>$cloud-&gt;setHtmlizeTagFunction( function($tag, $size) {
-    $link = '&lt;a href="'.$tag['url'].'"&gt;'.$tag['tag'].'&lt;/a&gt;';
-    return "&lt;span class='tag size{$size} colour-{$tag['colour']}'&gt;{$link}&lt;/span&gt; ";
-});
-</code></pre>
+<div class="highlight highlight-php"><pre><span class="nv">$cloud</span><span class="o">-&gt;</span><span class="na">setHtmlizeTagFunction</span><span class="p">(</span><span class="k">function</span><span class="p">(</span><span class="nv">$tag</span><span class="p">,</span> <span class="nv">$size</span><span class="p">)</span> <span class="k">use</span> <span class="p">(</span><span class="nv">$baseUrl</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nv">$link</span> <span class="o">=</span> <span class="s1">'&lt;a href="'</span><span class="o">.</span><span class="nv">$baseUrl</span><span class="o">.</span><span class="s1">'/'</span><span class="o">.</span><span class="nv">$tag</span><span class="p">[</span><span class="s1">'url'</span><span class="p">]</span><span class="o">.</span><span class="s1">'"&gt;'</span><span class="o">.</span><span class="nv">$tag</span><span class="p">[</span><span class="s1">'tag'</span><span class="p">]</span><span class="o">.</span><span class="s1">'&lt;/a&gt;'</span><span class="p">;</span>
+  <span class="k">return</span> <span class="s2">"&lt;span class='tag size</span><span class="si">{</span><span class="nv">$size</span><span class="si">}</span><span class="s2"> colour-</span><span class="si">{</span><span class="nv">$tag</span><span class="p">[</span><span class="s1">'colour'</span><span class="p">]</span><span class="si">}</span><span class="s2">'&gt;</span><span class="si">{</span><span class="nv">$link</span><span class="si">}</span><span class="s2">&lt;/span&gt; "</span><span class="p">;</span>
+<span class="p">});</span>
+</pre></div>
 
 <h4>
 <a name="outputting-the-cloud-shown-above" class="anchor" href="#outputting-the-cloud-shown-above"><span class="octicon octicon-link"></span></a>Outputting the cloud (shown above)</h4>
 
-<pre><code>echo $cloud-&gt;render();
-</code></pre>
+<div class="highlight highlight-php"><pre><span class="k">echo</span> <span class="nv">$cloud</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">();</span>
+</pre></div>
+
+<h4>
+<a name="transliteration" class="anchor" href="#transliteration"><span class="octicon octicon-link"></span></a>Transliteration</h4>
+
+<p>By default, all accented characters will be converted into their non-accented equivalent,
+this is to circumvent duplicate similar tags in the same cloud, to disable this functionality
+and display the UTF-8 characters you can do the following:</p>
+
+<div class="highlight highlight-php"><pre><span class="nv">$tagCloud</span><span class="o">-&gt;</span><span class="na">setOption</span><span class="p">(</span><span class="s1">'transliterate'</span><span class="p">,</span> <span class="k">false</span><span class="p">);</span>
+</pre></div>
 
 <p>More usages on in a prettier format can be found here: <a href="http://lotsofcode.github.com/tag-cloud">http://lotsofcode.github.com/tag-cloud</a></p>
 
@@ -119,14 +129,14 @@ $cloud-&gt;addTag(array('tag' =&gt; 'css', 'url' =&gt; 'http://www.php.net', 'co
 
 <p>To run the unit test suite, first install the dependencies:</p>
 
-<pre><code>curl -s https://getcomposer.org/installer | php
+<div class="highlight highlight-bash"><pre>curl -s https://getcomposer.org/installer <span class="p">|</span> php
 php composer.phar install
-</code></pre>
+</pre></div>
 
 <p>Then execute phpunit in the root directory</p>
 
-<pre><code>./vendor/bin/phpunit
-</code></pre>
+<div class="highlight highlight-bash"><pre>./vendor/bin/phpunit
+</pre></div>
 
 <h2>
 <a name="submitting-pull-requests" class="anchor" href="#submitting-pull-requests"><span class="octicon octicon-link"></span></a>Submitting pull requests</h2>
