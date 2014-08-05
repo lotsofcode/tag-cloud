@@ -42,6 +42,7 @@ class TagCloud
 	 */
 	protected $_formatting = array(
 		'transformation' => 'lower',
+        'transliterate' => true,
 		'trim' => true
 	);
 
@@ -128,6 +129,21 @@ class TagCloud
 		$this->addTags($tagArray);
 	}
 
+    public function setFormatting($option, $value)
+    {
+        $this->_formatting[$option] = $value;
+        return $this;
+    }
+
+
+    public function getFormatting($option = null)
+    {
+        if ($option !== null) {
+            return $this->_formatting[$option];
+        }
+        return $this->_formatting;
+    }
+
 	/*
 	 * Parse tag into safe format
 	 *
@@ -137,14 +153,17 @@ class TagCloud
 	 */
 	public function formatTag($string)
 	{
-    $string = $this->_convertCharacters($string);
+        if ($this->_formatting['transliterate']) {
+            $string = $this->transliterate($string);
+        }
+
 		if ($this->_formatting['transformation']) {
 			switch ($this->_formatting['transformation']) {
 				case 'upper':
-					$string = strtoupper($string);
-					break;
+                    $string = $this->_formatting['transliterate'] ? strtoupper($string) : mb_convert_case($string, MB_CASE_UPPER, "UTF-8");
+				    break;
 				default:
-					$string = strtolower($string);
+                    $string = $this->_formatting['transliterate'] ? strtolower($string) : mb_convert_case($string, MB_CASE_LOWER, "UTF-8");
 			}
 		}
 		if ($this->_formatting['trim']) {
@@ -583,7 +602,8 @@ class TagCloud
    *
    * Taken from http://stackoverflow.com/questions/6837148/change-foreign-characters-to-normal-equivalent
    */
-  function _convertCharacters($string) {
+  protected function transliterate($string)
+  {
     return str_replace(array_keys($this->_transliterationTable), array_values($this->_transliterationTable), $string);
   }
 }

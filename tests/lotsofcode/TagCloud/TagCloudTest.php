@@ -180,17 +180,38 @@ class TagCloudTest extends \PHPUnit_Framework_TestCase
     $this->assertSame("Greeting", $cloud['howdy']['description']);
   }
 
-  public function testCharacterConversion()
-  {
-    $tagCloud = new TagCloud();
+    public function testNoTransliterate()
+    {
+        $tagCloud = new TagCloud();
 
-    $tagCloud->addTag("example");
-    $tagCloud->addTag("éxample");
+        $tagCloud->setFormatting('transliterate', false);
 
-    $cloud = $tagCloud->render("array");
+        $this->assertSame(false, $tagCloud->getFormatting("transliterate"));
 
-    $this->assertCount(1, $cloud);
-    $this->assertArrayHasKey("example", $cloud);
-    $this->assertArrayNotHasKey("éxample", $cloud);
-  }
+        $tagCloud->addTag("example");
+        $tagCloud->addTag("éxample");
+
+        $cloud = $tagCloud->render("array");
+
+        $this->assertCount(2, $cloud);
+        $this->assertArrayHasKey("example", $cloud);
+        $this->assertArrayHasKey("éxample", $cloud);
+    }
+
+    public function testTransliterate()
+    {
+        $tagCloud = new TagCloud();
+
+        // transliterate should be default behaviour
+        $this->assertSame(true, $tagCloud->getFormatting("transliterate"));
+
+        $tagCloud->addTag("myexample");
+        $tagCloud->addTag("myéxample");
+
+        $cloud = $tagCloud->render("array");
+
+        $this->assertCount(1, $cloud);
+        $this->assertArrayHasKey("myexample", $cloud);
+        $this->assertArrayNotHasKey("myéxample", $cloud);
+    }
 }

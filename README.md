@@ -1,5 +1,5 @@
 # PHP Tag Cloud
-## v4.0
+## v4.0.1
 
 [![Build Status](https://travis-ci.org/lotsofcode/tag-cloud.png?branch=master)](https://travis-ci.org/lotsofcode/tag-cloud)
 
