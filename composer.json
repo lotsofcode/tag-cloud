@@ -1,4 +1,9 @@
 {
+    "name": "lotsofcode/tag-cloud",
+    "type": "library",
+    "description": "PHP tag cloud class http://lotsofcode.github.com/tag-cloud",
+    "keywords": ["tag cloud"],
+    "homepage": "http://lotsofcode.github.com/tag-cloud",
     "require-dev": {
         "phpunit/phpunit": "3.7.*"
     },

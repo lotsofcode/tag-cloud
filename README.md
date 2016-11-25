@@ -3,6 +3,12 @@
 
 [![Build Status](https://travis-ci.org/lotsofcode/tag-cloud.png?branch=master)](https://travis-ci.org/lotsofcode/tag-cloud)
 
+#### Install with composer
+
+```bash
+composer require lotsofcode/tag
+```
+
 #### Basic usage
 
 ```php
