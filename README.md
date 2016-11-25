@@ -6,7 +6,7 @@
 #### Install with composer
 
 ```bash
-composer require lotsofcode/tag
+composer require lotsofcode/tag-cloud
 ```
 
 #### Basic usage
